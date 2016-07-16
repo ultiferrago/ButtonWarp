@@ -201,6 +201,9 @@ public class Warp implements Comparable {
         for (String cmd : commands) {
             if (cmd.contains("<player>")) {
                 ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("<player>", playerName));
+            } else if (cmd.contains("@a") || cmd.contains("@e") || cmd.contains("@p") || cmd.contains("@r")) {
+                System.out.println("[ButtonWarp] Vanilla search tags are not supported yet.");
+                ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd);
             } else {
                 ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd);
             }
