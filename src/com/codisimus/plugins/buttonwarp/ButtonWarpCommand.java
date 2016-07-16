@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
 /**
@@ -20,7 +21,7 @@ public class ButtonWarpCommand implements CommandExecutor {
     static int multiplier;
     static String command;
     private static enum Action {
-        HELP, MAKE, MOVE, LINK, UNLINK, DELETE, COST, REWARD, ACCESS, SOURCE,
+        HELP, MAKE, MOVE, LINK, UNLINK, DELETE, COST, REWARD, ITEMS, ACCESS, SOURCE,
         CMD, MSG, TIME, GLOBAL, MAX, ALLOW, DENY, LIST, INFO, RESET, RL
     }
     private static enum Help { CREATE, SETUP, BUTTON }
@@ -229,6 +230,11 @@ public class ButtonWarpCommand implements CommandExecutor {
 
             sendSetupHelp(player);
             return true;
+
+        case ITEMS:
+            switch (args.length) {
+                case 2:
+            }
 
         case ACCESS:
             switch (args.length) {
@@ -592,6 +598,63 @@ public class ButtonWarpCommand implements CommandExecutor {
         player.sendMessage("§5Amount for Warp §6" + warp.name
                             + "§5 has been set to §6" + amount);
         warp.save();
+    }
+
+    /**
+     * Modifies the Item-Cost of the specified Warp.
+     * If a name is not provided, the Warp of the target Block is modified.
+     *
+     * @param player The Player modifying the Warp.
+     * @param name the name of the Warp to be modified.
+     * @param amount the new amount value
+     * @param itemSelect the item used
+     */
+    private static void items(Player player, String name, int amount, String itemSelect) {
+        //Cancel if the Warp was not found
+        Warp warp = getWarp(player, name);
+        if (warp == null) {
+            return;
+        }
+
+        ItemStack itemStack = null;
+
+        if (amount < 0) {
+            if (itemSelect.toLowerCase().contentEquals("hand")) {
+                if (player.getItemOnCursor() == null) {
+                    player.sendMessage("§5You must have an item in hand yo use this command.");
+                } else {
+                    warp.itemStack = player.getItemOnCursor();
+                    warp.itemAmount = amount;
+                    player.sendMessage("§5Item cost set to " + amount + " " + player.getItemOnCursor().getType().toString());
+                }
+            } else {
+                for (Material mat: Material.values()) {
+                    if (mat.toString().equalsIgnoreCase(itemSelect)) {
+                        itemStack.setType(mat);
+                        warp.itemStack = itemStack;
+                        warp.itemAmount = amount;
+                    }
+                }
+            }
+        } else if (amount > 0) {
+            if (itemSelect.toLowerCase().contentEquals("hand")) {
+                if (player.getItemOnCursor() == null) {
+                    player.sendMessage("§5You must have an item in hand yo use this command.");
+                } else {
+                    warp.itemStack = player.getItemOnCursor();
+                    warp.itemAmount = amount;
+                    player.sendMessage("§5Item reward set to " + amount + " " + player.getItemOnCursor().getType().toString());
+                }
+            } else {
+                for (Material mat: Material.values()) {
+                    if (mat.toString().equalsIgnoreCase(itemSelect)) {
+                        itemStack.setType(mat);
+                        warp.itemStack = itemStack;
+                        warp.itemAmount = amount;
+                    }
+                }
+            }
+        }
     }
 
     /**

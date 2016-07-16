@@ -91,7 +91,7 @@ public class Warp implements Comparable {
      * itemAmount = the item cost of the Warp.
      * @param source The source of the money transactions for the Warp
      */
-    public Warp (String name, String msg, double amount, String source) {
+    public Warp (String name, String msg, double amount, ItemStack itemStack, int itemAmount, String source) {
         this.name = name;
         this.msg = msg;
         this.amount = amount;
