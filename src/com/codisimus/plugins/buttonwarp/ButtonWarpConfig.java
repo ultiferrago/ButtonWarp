@@ -63,6 +63,7 @@ public class ButtonWarpConfig {
             ButtonWarpMessages.cannotUseAgain = loadString("CannotUseAgainMessage", string);
             ButtonWarpMessages.timeRemainingReward = loadString("TimeRemainingRewardMessage", string);
             ButtonWarpMessages.timeRemainingUse = loadString("TimeRemainingUseMessage", string);
+            ButtonWarpMessages.insufficientItems = loadString("InsufficientItemsMessage", string);
 
             ButtonWarpMessages.formatAll();
         } catch (Exception missingProp) {

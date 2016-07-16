@@ -22,6 +22,7 @@ public class ButtonWarpMessages {
     static String cannotUseAgain;
     static String timeRemainingReward;
     static String timeRemainingUse;
+    static String insufficientItems;
 
     /**
      * Formats all messages
@@ -43,6 +44,7 @@ public class ButtonWarpMessages {
         cannotUseAgain = format(cannotUseAgain);
         timeRemainingReward = format(timeRemainingReward);
         timeRemainingUse = format(timeRemainingUse);
+        insufficientItems = format(insufficientItems);
     }
 
     /**

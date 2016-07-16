@@ -2,6 +2,7 @@ package com.codisimus.plugins.buttonwarp;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -48,6 +49,29 @@ public class Econ {
         }
 
         return true;
+    }
+
+    public static boolean itemCharge(Player player, ItemStack itemStack, int amount) {
+        String name = player.getName();
+
+        //Check if the player can afford the transaction and remove items.
+        for (ItemStack item: player.getInventory().getContents()) {
+            if (item == itemStack && item.getAmount() >= amount) {
+                item.setAmount(item.getAmount() - amount);
+                return true;
+            }
+        }
+
+        //Check armour contents for items
+        for (ItemStack item: player.getInventory().getArmorContents()) {
+            if (item == itemStack && item.getAmount() >= amount) {
+                item.setAmount(item.getAmount() - amount);
+                return true;
+            }
+        }
+
+        player.sendMessage(ButtonWarpMessages.insufficientItems.replace("<amount>", ("" + amount)).replace("<items>", ("" + itemStack)));
+        return false;
     }
 
     /**
