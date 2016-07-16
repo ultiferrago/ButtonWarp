@@ -3,7 +3,10 @@ package com.codisimus.plugins.buttonwarp;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Properties;
+
+import net.minecraft.server.v1_9_R2.ICommandListener;
 import org.apache.commons.lang.time.DateUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -21,8 +24,7 @@ public class Warp implements Comparable {
     static boolean log;
     static boolean broadcast;
     static boolean sound;
-    private static ButtonWarpCommandSender cs = new ButtonWarpCommandSender();
-    private static ButtonWarpVanillaCommandSender vcs = new ButtonWarpVanillaCommandSender();
+    private static ButtonWarpCommandSender cs = new ButtonWarpCommandSender();;
 
     public String name; //A unique name for the Warp
     public String msg = ""; //Message sent to Player when using the Warp
@@ -181,7 +183,6 @@ public class Warp implements Comparable {
      * @param button The Block which was pressed
      */
     public void activate(final Player player, Button button) {
-        vcs.setBlock(button.getBlock(button));
 
         if (world != null) {
             teleport(player);
@@ -199,9 +200,9 @@ public class Warp implements Comparable {
         //Execute each Warp command
         for (String cmd : commands) {
             if (cmd.contains("<player>")) {
-                ButtonWarp.server.dispatchCommand(vcs, cmd.replace("<player>", playerName));
+                ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("<player>", playerName));
             } else {
-                ButtonWarp.server.dispatchCommand(vcs, cmd);
+                ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd);
             }
         }
 
