@@ -219,6 +219,7 @@ public class Warp implements Comparable {
         if (itemAmount > 0) {
             Econ.itemCharge(player, itemType, itemAmount);
         }
+        
 
         //Execute each Warp command
         for (String cmd : commands) {
