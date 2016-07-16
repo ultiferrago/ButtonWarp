@@ -29,6 +29,9 @@ public class Warp implements Comparable {
     public String name; //A unique name for the Warp
     public String msg = ""; //Message sent to Player when using the Warp
 
+    public int itemAmount = 0; //Amount of items rewarded (negative for cost)
+    public ItemStack itemStack = null;
+
     public double amount = 0; //Amount of money rewarded (negative for charging money)
     public String source = "server"; //Player name || 'Bank:'+Bank Name || 'server'
 
@@ -84,12 +87,16 @@ public class Warp implements Comparable {
      * @param name The unique name of the Warp
      * @param msg The message that the Warp will display
      * @param amount The price/reward of the Warp
+     * itemStack = the item type cost of the Warp.
+     * itemAmount = the item cost of the Warp.
      * @param source The source of the money transactions for the Warp
      */
     public Warp (String name, String msg, double amount, String source) {
         this.name = name;
         this.msg = msg;
         this.amount = amount;
+        this.itemStack = itemStack;
+        this.itemAmount = itemAmount;
         this.source = source;
     }
 
@@ -121,6 +128,11 @@ public class Warp implements Comparable {
         //True if the Warp rewards money
         if (amount > 0) {
             return true; //Will check if timed out later
+        }
+
+        //True if the Warp rewards items
+        if (itemAmount > 0) {
+            return true;
         }
 
         /* Is Timed Out? */
@@ -163,6 +175,13 @@ public class Warp implements Comparable {
         //False if the Warp is not free and the Player cannot afford it
         if (amount < 0 && !ButtonWarp.hasPermission(player, "freewarp")) {
             if (!Econ.charge(player, source, Math.abs(amount))) {
+                return false;
+            }
+        }
+
+        //False if the player doesn't have the items to afford the warp.
+        if (itemAmount < 0) {
+            if(!Econ.itemCharge(player, itemStack, itemAmount)) {
                 return false;
             }
         }
