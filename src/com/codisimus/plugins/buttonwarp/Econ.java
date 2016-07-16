@@ -52,34 +52,80 @@ public class Econ {
         return true;
     }
 
-    public static boolean itemCharge(Player player, String itemType, int amount) {
-        String name = player.getName();
+    public static boolean itemCharge(Player player, Material itemType, int amount) {
+        boolean hasBeenSet = false;
 
         //Check if the player can afford the transaction and remove items.
-        for (ItemStack item: player.getInventory().getContents()) {
+        for (ItemStack item : player.getInventory().getContents()) {
             if (!(item == null)) {
-                if (item.getType().toString().equalsIgnoreCase(itemType) && item.getAmount() >= amount) {
-                    //Using addition to allow for negative values.
-                    item.setAmount(item.getAmount() + amount);
-                    System.out.println("[BW]: " + amount + " " + itemType);
+                if (item.getType() == itemType) {
+//                    System.out.println("[BW]: I found " + item.getAmount() + " " + item.getType().toString());
+//                    System.out.println("[BW]: You need " + Math.abs(amount) + " " + item.getType().toString());
+                    if (amount < 0 && item.getAmount() >= Math.abs(amount)) {
+                        ItemStack removeItem = new ItemStack(itemType);
+                        removeItem.setAmount(Math.abs(amount));
+                        player.getInventory().removeItem(removeItem);
+//                        System.out.println("[BW]: Removed " + amount + " " + itemType);
+                        return true;
+                    } else if (amount > 0){
+                        ItemStack addItem = new ItemStack(itemType);
+                        addItem.setAmount(amount);
+                        player.getInventory().addItem(addItem);
+//                        System.out.println("[BW]: Added " + amount + " " + itemType);
+                        return true;
+                    }
+                } else if (amount > 0) {
+                    ItemStack addItem = new ItemStack(itemType);
+                    addItem.setAmount(amount);
+                    player.getInventory().addItem(addItem);
+//                    System.out.println("[BW] Added " + amount + " " + itemType);
                     return true;
                 }
+            } else if (amount > 0) {
+                ItemStack addItem = new ItemStack(itemType);
+                addItem.setAmount(amount);
+                player.getInventory().addItem(addItem);
+//                System.out.println("[BW] Added " + amount + " " + itemType);
+                return true;
             }
         }
 
-        //Check armour contents for items
-        for (ItemStack item: player.getInventory().getArmorContents()) {
+        //Check if the player can afford the transaction and remove items.
+        for (ItemStack item : player.getInventory().getArmorContents()) {
             if (!(item == null)) {
-                if (item.getType().toString().equalsIgnoreCase(itemType) && item.getAmount() >= amount) {
-                    //Using addition to allow for negative values.
-                    item.setAmount(item.getAmount() + amount);
-                    System.out.println("[BW]: " + amount + " " + itemType);
+                if (item.getType() == itemType) {
+//                    System.out.println("[BW]: I found " + item.getAmount() + " " + item.getType().toString());
+//                    System.out.println("[BW]: You need " + Math.abs(amount) + " " + item.getType().toString());
+                    if (amount < 0 && item.getAmount() >= Math.abs(amount)) {
+                        ItemStack removeItem = new ItemStack(itemType);
+                        removeItem.setAmount(Math.abs(amount));
+                        player.getInventory().removeItem(removeItem);
+//                        System.out.println("[BW]: Removed " + amount + " " + itemType);
+                        return true;
+                    } else if (amount > 0){
+                        ItemStack addItem = new ItemStack(itemType);
+                        addItem.setAmount(amount);
+                        player.getInventory().addItem(addItem);
+//                        System.out.println("[BW]: Added " + amount + " " + itemType);
+                        return true;
+                    }
+                } else if (amount > 0) {
+                    ItemStack addItem = new ItemStack(itemType);
+                    addItem.setAmount(amount);
+                    player.getInventory().addItem(addItem);
+//                    System.out.println("[BW] Added " + amount + " " + itemType);
                     return true;
                 }
+            } else if (amount > 0) {
+                ItemStack addItem = new ItemStack(itemType);
+                addItem.setAmount(amount);
+                player.getInventory().addItem(addItem);
+//                System.out.println("[BW] Added " + amount + " " + itemType);
+                return true;
             }
         }
 
-        player.sendMessage(ButtonWarpMessages.insufficientItems.replace("<amount>", ("" + amount)).replace("<items>", ("" + itemType)));
+        player.sendMessage(ButtonWarpMessages.insufficientItems.replace("<amount>", ("" + Math.abs(amount))).replace("<items>", ("" + itemType)));
         return false;
     }
 

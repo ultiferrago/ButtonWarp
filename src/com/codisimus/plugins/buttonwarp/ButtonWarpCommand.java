@@ -639,15 +639,16 @@ public class ButtonWarpCommand implements CommandExecutor {
                 if (player.getEquipment().getItemInMainHand() == null) {
                     player.sendMessage("§5You must have an item in hand yo use this command.");
                 } else {
-                    warp.itemType = player.getEquipment().getItemInMainHand().getType().toString();
+                    warp.itemType = player.getEquipment().getItemInMainHand().getType();
                     warp.itemAmount = amount;
                     player.sendMessage("§5Item cost set to " + amount + " " + player.getEquipment().getItemInMainHand().getType().toString());
                 }
             } else {
                 for (Material mat: Material.values()) {
                     if (mat.toString().equalsIgnoreCase(itemSelect)) {
-                        warp.itemType = mat.toString();
+                        warp.itemType = mat;
                         warp.itemAmount = amount;
+                        player.sendMessage("§5Item cost set to " + amount + " " + itemSelect);
                     }
                 }
             }
@@ -656,15 +657,16 @@ public class ButtonWarpCommand implements CommandExecutor {
                 if (player.getEquipment().getItemInMainHand() == null) {
                     player.sendMessage("§5You must have an item in hand yo use this command.");
                 } else {
-                    warp.itemType = player.getEquipment().getItemInMainHand().getType().toString();
+                    warp.itemType = player.getEquipment().getItemInMainHand().getType();
                     warp.itemAmount = amount;
                     player.sendMessage("§5Item reward set to " + amount + " " + player.getEquipment().getItemInMainHand().getType().toString());
                 }
             } else {
                 for (Material mat: Material.values()) {
                     if (mat.toString().equalsIgnoreCase(itemSelect)) {
-                        warp.itemType = mat.toString();
+                        warp.itemType = mat;
                         warp.itemAmount = amount;
+                        player.sendMessage("§5Item reward set to " + amount + " " + itemSelect);
                     }
                 }
             }

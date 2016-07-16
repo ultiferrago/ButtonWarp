@@ -4,12 +4,11 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Properties;
 
-import net.minecraft.server.v1_9_R2.ICommandListener;
-import net.minecraft.server.v1_9_R2.Material;
 import org.apache.commons.lang.time.DateUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -31,7 +30,7 @@ public class Warp implements Comparable {
     public String msg = ""; //Message sent to Player when using the Warp
 
     public int itemAmount = 0; //Amount of items rewarded (negative for cost)
-    public String itemType = Material.AIR.toString();
+    public Material itemType = Material.AIR;
 
     public double amount = 0; //Amount of money rewarded (negative for charging money)
     public String source = "server"; //Player name || 'Bank:'+Bank Name || 'server'
@@ -92,7 +91,7 @@ public class Warp implements Comparable {
      * itemAmount = the item cost of the Warp.
      * @param source The source of the money transactions for the Warp
      */
-    public Warp (String name, String msg, double amount, String source, String itemType, int itemAmount) {
+    public Warp (String name, String msg, double amount, String source, Material itemType, int itemAmount) {
         this.name = name;
         this.msg = msg;
         this.amount = amount;
@@ -124,11 +123,6 @@ public class Warp implements Comparable {
         if (world != null && ButtonWarp.server.getWorld(world) == null) {
             player.sendMessage(ButtonWarpMessages.worldMissing.replace("<world>", world));
             return false;
-        }
-
-        //True if the Warp rewards money
-        if (amount > 0) {
-            return true; //Will check if timed out later
         }
 
         //True if the Warp rewards items
@@ -178,6 +172,11 @@ public class Warp implements Comparable {
             if (!Econ.charge(player, source, Math.abs(amount))) {
                 return false;
             }
+        }
+
+        //True if the Warp rewards money
+        if (amount > 0) {
+            return true; //Will check if timed out later
         }
 
         //False if the player doesn't have the items to afford the warp.
