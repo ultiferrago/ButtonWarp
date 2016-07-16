@@ -404,7 +404,7 @@ public class Warp implements Comparable {
 
         player.teleport(sendTo);
         if (sound) {
-            player.playSound(sendTo, Sound.ENDERMAN_TELEPORT, 0.8F, 0.075F);
+            player.playSound(sendTo, Sound.ENTITY_ENDERMEN_TELEPORT, 0.8F, 0.075F);
         }
     }
 
