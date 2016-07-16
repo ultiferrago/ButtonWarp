@@ -674,6 +674,10 @@ public class ButtonWarpCommand implements CommandExecutor {
             //Occurs if amount = 0. Nothing happens.
         }
 
+        if (warp.itemType == Material.AIR) {
+            player.sendMessage(itemSelect + " §5is not a valid item name.");
+        }
+
         warp.save();
     }
 
