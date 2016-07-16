@@ -54,6 +54,7 @@ public class Econ {
 
     public static boolean itemCharge(Player player, Material itemType, int amount) {
         boolean hasBeenSet = false;
+        int itemQuantity = 0;
 
         //Check if the player can afford the transaction and remove items.
         for (ItemStack item : player.getInventory().getContents()) {
@@ -61,12 +62,16 @@ public class Econ {
                 if (item.getType() == itemType) {
 //                    System.out.println("[BW]: I found " + item.getAmount() + " " + item.getType().toString());
 //                    System.out.println("[BW]: You need " + Math.abs(amount) + " " + item.getType().toString());
-                    if (amount < 0 && item.getAmount() >= Math.abs(amount)) {
-                        ItemStack removeItem = new ItemStack(itemType);
-                        removeItem.setAmount(Math.abs(amount));
-                        player.getInventory().removeItem(removeItem);
+                    if (amount < 0 && (item.getAmount() >= Math.abs(amount) || item.getAmount() == 64)) {
+                        if (Math.abs(amount) <= 64) {
+                            ItemStack removeItem = new ItemStack(itemType);
+                            removeItem.setAmount(Math.abs(amount));
+                            player.getInventory().removeItem(removeItem);
+                            return true;
+                        } else if (Math.abs(amount) > 64){
+                            itemQuantity = itemQuantity + item.getAmount();
+                        }
 //                        System.out.println("[BW]: Removed " + amount + " " + itemType);
-                        return true;
                     } else if (amount > 0){
                         ItemStack addItem = new ItemStack(itemType);
                         addItem.setAmount(amount);
@@ -96,12 +101,16 @@ public class Econ {
                 if (item.getType() == itemType) {
 //                    System.out.println("[BW]: I found " + item.getAmount() + " " + item.getType().toString());
 //                    System.out.println("[BW]: You need " + Math.abs(amount) + " " + item.getType().toString());
-                    if (amount < 0 && item.getAmount() >= Math.abs(amount)) {
-                        ItemStack removeItem = new ItemStack(itemType);
-                        removeItem.setAmount(Math.abs(amount));
-                        player.getInventory().removeItem(removeItem);
+                    if (amount < 0 && (item.getAmount() >= Math.abs(amount) || item.getAmount() == 64)) {
+                        if (Math.abs(amount) <= 64) {
+                            ItemStack removeItem = new ItemStack(itemType);
+                            removeItem.setAmount(Math.abs(amount));
+                            player.getInventory().removeItem(removeItem);
+                            return true;
+                        } else if (Math.abs(amount) > 64){
+                            itemQuantity = itemQuantity + item.getAmount();
+                        }
 //                        System.out.println("[BW]: Removed " + amount + " " + itemType);
-                        return true;
                     } else if (amount > 0){
                         ItemStack addItem = new ItemStack(itemType);
                         addItem.setAmount(amount);
@@ -123,6 +132,13 @@ public class Econ {
 //                System.out.println("[BW] Added " + amount + " " + itemType);
                 return true;
             }
+        }
+
+        if (itemQuantity >= Math.abs(amount)) {
+            ItemStack removeItem = new ItemStack(itemType);
+            removeItem.setAmount(Math.abs(amount));
+            player.getInventory().removeItem(removeItem);
+            return true;
         }
 
         player.sendMessage(ButtonWarpMessages.insufficientItems.replace("<amount>", ("" + Math.abs(amount))).replace("<items>", ("" + itemType)));

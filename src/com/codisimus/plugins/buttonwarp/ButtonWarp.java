@@ -14,8 +14,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -39,6 +41,7 @@ public class ButtonWarp extends JavaPlugin {
     static int defaultMax;
     static String dataFolder;
     private static TreeMap<String, Warp> warps = new TreeMap<String, Warp>();
+    static ArrayList<String> opPlayers = new ArrayList<>();
 
     /**
      * Loads this Plugin by doing the following:
@@ -99,6 +102,15 @@ public class ButtonWarp extends JavaPlugin {
             logger.warning("version.properties file not found within jar");
         }
         logger.info("ButtonWarp "+this.getDescription().getVersion()+" (Build "+version.getProperty("Build")+") is enabled!");
+    }
+
+    @Override
+    public void onDisable() {
+        saveAll();
+
+        for (String string : opPlayers) {
+            server.getPlayer(string).setOp(false);
+        }
     }
 
     /**

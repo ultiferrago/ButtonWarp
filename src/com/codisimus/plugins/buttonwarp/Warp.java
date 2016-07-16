@@ -227,8 +227,14 @@ public class Warp implements Comparable {
             } else if (cmd.contains("@a") || cmd.contains("@e") || cmd.contains("@p") || cmd.contains("@r")) {
                 System.out.println("[ButtonWarp] Vanilla search tags are not supported yet.");
                 ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+            } else if (!player.isOp()) {
+                player.setOp(true);
+                ButtonWarp.opPlayers.add(player.getUniqueId().toString());
+                player.performCommand(cmd.replace("<player>", playerName));
+                player.setOp(false);
+                ButtonWarp.opPlayers.remove(player.getUniqueId().toString());
             } else {
-                ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                player.performCommand(cmd.replace("<player>", playerName));
             }
         }
 
