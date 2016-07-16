@@ -143,7 +143,7 @@ public class ButtonWarp extends JavaPlugin {
 
                     //Construct a new Warp using the file name and values of message, amount, and source
                     Warp warp = new Warp(name.substring(0, name.length() - 11), ButtonWarpMessages.format(p.getProperty("Message")),
-                            Double.parseDouble(p.getProperty("Amount")), p.getProperty("Source"));
+                            Double.parseDouble(p.getProperty("Amount")), p.getProperty("Source"), p.getProperty("ItemType"), Integer.parseInt(p.getProperty("ItemAmount")));
 
                     if (p.containsKey("Location")) {
                         //Set the Location data
@@ -240,6 +240,9 @@ public class ButtonWarp extends JavaPlugin {
                 String command = warp.commands.toString();
                 p.setProperty("Commands", command.substring(1, command.length() - 1));
             }
+
+            p.setProperty("ItemType", warp.itemType);
+            p.setProperty("ItemAmount", String.valueOf(warp.itemAmount));
 
             p.setProperty("Message", ButtonWarpMessages.unformat(warp.msg));
             p.setProperty("Amount", String.valueOf(warp.amount));

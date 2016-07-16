@@ -2,6 +2,7 @@ package com.codisimus.plugins.buttonwarp;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -51,26 +52,34 @@ public class Econ {
         return true;
     }
 
-    public static boolean itemCharge(Player player, ItemStack itemStack, int amount) {
+    public static boolean itemCharge(Player player, String itemType, int amount) {
         String name = player.getName();
 
         //Check if the player can afford the transaction and remove items.
         for (ItemStack item: player.getInventory().getContents()) {
-            if (item == itemStack && item.getAmount() >= amount) {
-                item.setAmount(item.getAmount() - amount);
-                return true;
+            if (!(item == null)) {
+                if (item.getType().toString().equalsIgnoreCase(itemType) && item.getAmount() >= amount) {
+                    //Using addition to allow for negative values.
+                    item.setAmount(item.getAmount() + amount);
+                    System.out.println("[BW]: " + amount + " " + itemType);
+                    return true;
+                }
             }
         }
 
         //Check armour contents for items
         for (ItemStack item: player.getInventory().getArmorContents()) {
-            if (item == itemStack && item.getAmount() >= amount) {
-                item.setAmount(item.getAmount() - amount);
-                return true;
+            if (!(item == null)) {
+                if (item.getType().toString().equalsIgnoreCase(itemType) && item.getAmount() >= amount) {
+                    //Using addition to allow for negative values.
+                    item.setAmount(item.getAmount() + amount);
+                    System.out.println("[BW]: " + amount + " " + itemType);
+                    return true;
+                }
             }
         }
 
-        player.sendMessage(ButtonWarpMessages.insufficientItems.replace("<amount>", ("" + amount)).replace("<items>", ("" + itemStack)));
+        player.sendMessage(ButtonWarpMessages.insufficientItems.replace("<amount>", ("" + amount)).replace("<items>", ("" + itemType)));
         return false;
     }
 

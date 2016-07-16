@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Properties;
 
 import net.minecraft.server.v1_9_R2.ICommandListener;
+import net.minecraft.server.v1_9_R2.Material;
 import org.apache.commons.lang.time.DateUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -30,7 +31,7 @@ public class Warp implements Comparable {
     public String msg = ""; //Message sent to Player when using the Warp
 
     public int itemAmount = 0; //Amount of items rewarded (negative for cost)
-    public ItemStack itemStack = null;
+    public String itemType = Material.AIR.toString();
 
     public double amount = 0; //Amount of money rewarded (negative for charging money)
     public String source = "server"; //Player name || 'Bank:'+Bank Name || 'server'
@@ -91,13 +92,13 @@ public class Warp implements Comparable {
      * itemAmount = the item cost of the Warp.
      * @param source The source of the money transactions for the Warp
      */
-    public Warp (String name, String msg, double amount, ItemStack itemStack, int itemAmount, String source) {
+    public Warp (String name, String msg, double amount, String source, String itemType, int itemAmount) {
         this.name = name;
         this.msg = msg;
         this.amount = amount;
-        this.itemStack = itemStack;
-        this.itemAmount = itemAmount;
         this.source = source;
+        this.itemType = itemType;
+        this.itemAmount = itemAmount;
     }
 
     /**
@@ -181,7 +182,7 @@ public class Warp implements Comparable {
 
         //False if the player doesn't have the items to afford the warp.
         if (itemAmount < 0) {
-            if(!Econ.itemCharge(player, itemStack, itemAmount)) {
+            if(!Econ.itemCharge(player, itemType, itemAmount)) {
                 return false;
             }
         }
@@ -214,6 +215,10 @@ public class Warp implements Comparable {
                     Econ.reward(player, source, amount);
                 }
             }
+        }
+
+        if (itemAmount > 0) {
+            Econ.itemCharge(player, itemType, itemAmount);
         }
 
         //Execute each Warp command

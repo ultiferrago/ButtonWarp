@@ -233,8 +233,26 @@ public class ButtonWarpCommand implements CommandExecutor {
 
         case ITEMS:
             switch (args.length) {
-                case 2:
+                case 3:
+                    try {
+                        items(player, null, Integer.parseInt(args[1]), args[2]);
+                        return true;
+                    } catch (Exception notInt) {
+                        break;
+                    }
+                case 4:
+                    try {
+                        items(player, args[1], Integer.parseInt(args[2]), args[3]);
+                        return true;
+                    } catch (Exception notInt) {
+                        break;
+                    }
+
+            default: break;
             }
+
+            sendSetupHelp(player);
+            return true;
 
         case ACCESS:
             switch (args.length) {
@@ -616,45 +634,45 @@ public class ButtonWarpCommand implements CommandExecutor {
             return;
         }
 
-        ItemStack itemStack = null;
-
         if (amount < 0) {
             if (itemSelect.toLowerCase().contentEquals("hand")) {
-                if (player.getItemOnCursor() == null) {
+                if (player.getEquipment().getItemInMainHand() == null) {
                     player.sendMessage("§5You must have an item in hand yo use this command.");
                 } else {
-                    warp.itemStack = player.getItemOnCursor();
+                    warp.itemType = player.getEquipment().getItemInMainHand().getType().toString();
                     warp.itemAmount = amount;
-                    player.sendMessage("§5Item cost set to " + amount + " " + player.getItemOnCursor().getType().toString());
+                    player.sendMessage("§5Item cost set to " + amount + " " + player.getEquipment().getItemInMainHand().getType().toString());
                 }
             } else {
                 for (Material mat: Material.values()) {
                     if (mat.toString().equalsIgnoreCase(itemSelect)) {
-                        itemStack.setType(mat);
-                        warp.itemStack = itemStack;
+                        warp.itemType = mat.toString();
                         warp.itemAmount = amount;
                     }
                 }
             }
         } else if (amount > 0) {
             if (itemSelect.toLowerCase().contentEquals("hand")) {
-                if (player.getItemOnCursor() == null) {
+                if (player.getEquipment().getItemInMainHand() == null) {
                     player.sendMessage("§5You must have an item in hand yo use this command.");
                 } else {
-                    warp.itemStack = player.getItemOnCursor();
+                    warp.itemType = player.getEquipment().getItemInMainHand().getType().toString();
                     warp.itemAmount = amount;
-                    player.sendMessage("§5Item reward set to " + amount + " " + player.getItemOnCursor().getType().toString());
+                    player.sendMessage("§5Item reward set to " + amount + " " + player.getEquipment().getItemInMainHand().getType().toString());
                 }
             } else {
                 for (Material mat: Material.values()) {
                     if (mat.toString().equalsIgnoreCase(itemSelect)) {
-                        itemStack.setType(mat);
-                        warp.itemStack = itemStack;
+                        warp.itemType = mat.toString();
                         warp.itemAmount = amount;
                     }
                 }
             }
+        } else {
+            //Occurs if amount = 0. Nothing happens.
         }
+
+        warp.save();
     }
 
     /**
@@ -974,6 +992,8 @@ public class ButtonWarpCommand implements CommandExecutor {
                             + " minutes, and " + warp.seconds + " seconds.");
         player.sendMessage("§2Commands:§b " + warp.commands);
         player.sendMessage("§2Restricted:§b " + warp.restricted);
+        player.sendMessage("§2Item Cost Type:§b " + warp.itemType);
+        player.sendMessage("§2Item Cost Amount:§b " + warp.itemAmount);
     }
 
     /**
@@ -1096,6 +1116,9 @@ public class ButtonWarpCommand implements CommandExecutor {
         }
         if (ButtonWarp.hasPermission(player, "reward")) {
             player.sendMessage("§2/"+command+" reward [Name] <Amount>§b Sets the reward for using the Warp");
+        }
+        if (ButtonWarp.hasPermission(player, "items")) {
+            player.sendMessage("§2/"+command+" items [Name] <Amount> <Hand/Itemname>§b Sets the reward for using the Warp");
         }
         if (ButtonWarp.hasPermission(player, "source")) {
             player.sendMessage("§2/"+command+" source [Name] server§b Generates/Destroys money");
