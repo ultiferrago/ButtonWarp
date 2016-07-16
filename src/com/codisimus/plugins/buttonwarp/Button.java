@@ -1,5 +1,7 @@
 package com.codisimus.plugins.buttonwarp;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 
 /**
@@ -63,6 +65,12 @@ public class Button {
         }
 
         return block.getWorld().getName().equals(world);
+    }
+
+    public Block getBlock(Button button) {
+        String[] locationString = button.getLocationString().split("'");
+        Location buttonLoc = new Location(Bukkit.getWorld(locationString[0]), Integer.parseInt(locationString[1]), Integer.parseInt(locationString[2]), Integer.parseInt(locationString[3]));
+        return buttonLoc.getBlock();
     }
 
     /**

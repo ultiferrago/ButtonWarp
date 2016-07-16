@@ -22,6 +22,7 @@ public class Warp implements Comparable {
     static boolean broadcast;
     static boolean sound;
     private static ButtonWarpCommandSender cs = new ButtonWarpCommandSender();
+    private static ButtonWarpVanillaCommandSender vcs = new ButtonWarpVanillaCommandSender();
 
     public String name; //A unique name for the Warp
     public String msg = ""; //Message sent to Player when using the Warp
@@ -180,6 +181,8 @@ public class Warp implements Comparable {
      * @param button The Block which was pressed
      */
     public void activate(final Player player, Button button) {
+        vcs.setBlock(button.getBlock(button));
+
         if (world != null) {
             teleport(player);
         }
@@ -195,7 +198,11 @@ public class Warp implements Comparable {
 
         //Execute each Warp command
         for (String cmd : commands) {
-            ButtonWarp.server.dispatchCommand(cs, cmd.replace("<player>", playerName));
+            if (cmd.contains("<player>")) {
+                ButtonWarp.server.dispatchCommand(vcs, cmd.replace("<player>", playerName));
+            } else {
+                ButtonWarp.server.dispatchCommand(vcs, cmd);
+            }
         }
 
         //Send the message to the Player if there is one
@@ -384,7 +391,6 @@ public class Warp implements Comparable {
      * Teleports the given Player
      *
      * @param player The Player to be teleported
-     * @param sendTo The destination of the Player
      */
     public void teleport(Player player) {
         World targetWorld = ButtonWarp.server.getWorld(world);
