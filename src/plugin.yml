@@ -11,6 +11,9 @@ commands:
     description: Used to setup and manage Warps
     usage: /<command> help
     aliases: [buttonwarp]
+  setblock:
+    description: Helps set blocks
+    usage: /<command> help
 permissions:
   buttonwarp.use:
     description: Needed to activate a Warp

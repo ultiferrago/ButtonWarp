@@ -29,6 +29,7 @@ public class Warp implements Comparable {
     public String name; //A unique name for the Warp
     public String msg = ""; //Message sent to Player when using the Warp
 
+    public String itemName = null;
     public int itemAmount = 0; //Amount of items rewarded (negative for cost)
     public Material itemType = Material.AIR;
 
@@ -91,13 +92,14 @@ public class Warp implements Comparable {
      * itemAmount = the item cost of the Warp.
      * @param source The source of the money transactions for the Warp
      */
-    public Warp (String name, String msg, double amount, String source, Material itemType, int itemAmount) {
+    public Warp (String name, String msg, double amount, String source, Material itemType, int itemAmount, String itemName) {
         this.name = name;
         this.msg = msg;
         this.amount = amount;
         this.source = source;
         this.itemType = itemType;
         this.itemAmount = itemAmount;
+        this.itemName = itemName;
     }
 
     /**
@@ -181,7 +183,7 @@ public class Warp implements Comparable {
 
         //False if the player doesn't have the items to afford the warp.
         if (itemAmount < 0) {
-            if(!Econ.itemCharge(player, itemType, itemAmount)) {
+            if(!Econ.itemCharge(player, itemType, itemAmount, itemName)) {
                 return false;
             }
         }
@@ -217,26 +219,14 @@ public class Warp implements Comparable {
         }
 
         if (itemAmount > 0) {
-            Econ.itemCharge(player, itemType, itemAmount);
+            Econ.itemCharge(player, itemType, itemAmount, itemName);
         }
-        
+
 
         //Execute each Warp command
         for (String cmd : commands) {
-            if (cmd.contains("<player>")) {
-                ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("<player>", playerName));
-            } else if (cmd.contains("@a") || cmd.contains("@e") || cmd.contains("@p") || cmd.contains("@r")) {
-                System.out.println("[ButtonWarp] Vanilla search tags are not supported yet.");
-                ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd);
-            } else if (!player.isOp()) {
-                player.setOp(true);
-                ButtonWarp.opPlayers.add(player.getUniqueId().toString());
-                player.performCommand(cmd.replace("<player>", playerName));
-                player.setOp(false);
-                ButtonWarp.opPlayers.remove(player.getUniqueId().toString());
-            } else {
-                player.performCommand(cmd.replace("<player>", playerName));
-            }
+            Bukkit.broadcastMessage(cmd);
+            ButtonWarp.server.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("<player>", playerName));
         }
 
         //Send the message to the Player if there is one

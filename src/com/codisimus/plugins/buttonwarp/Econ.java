@@ -52,16 +52,14 @@ public class Econ {
         return true;
     }
 
-    public static boolean itemCharge(Player player, Material itemType, int amount) {
+    public static boolean itemCharge(Player player, Material itemType, int amount, String itemName) {
         boolean hasBeenSet = false;
         int itemQuantity = 0;
 
         //Check if the player can afford the transaction and remove items.
         for (ItemStack item : player.getInventory().getContents()) {
             if (!(item == null)) {
-                if (item.getType() == itemType) {
-//                    System.out.println("[BW]: I found " + item.getAmount() + " " + item.getType().toString());
-//                    System.out.println("[BW]: You need " + Math.abs(amount) + " " + item.getType().toString());
+                if (item.getType() == itemType && itemName == null) {
                     if (amount < 0 && (item.getAmount() >= Math.abs(amount) || item.getAmount() == 64)) {
                         if (Math.abs(amount) <= 64) {
                             ItemStack removeItem = new ItemStack(itemType);
@@ -71,26 +69,54 @@ public class Econ {
                         } else if (Math.abs(amount) > 64){
                             itemQuantity = itemQuantity + item.getAmount();
                         }
-//                        System.out.println("[BW]: Removed " + amount + " " + itemType);
                     } else if (amount > 0){
                         ItemStack addItem = new ItemStack(itemType);
                         addItem.setAmount(amount);
                         player.getInventory().addItem(addItem);
-//                        System.out.println("[BW]: Added " + amount + " " + itemType);
+                        return true;
+                    }
+                } else if (item.getType() == itemType && item.getItemMeta().getDisplayName() == itemName) {
+                    if (amount < 0 && (item.getAmount() >= Math.abs(amount) || item.getAmount() == 64)) {
+                        if (Math.abs(amount) <= 64) {
+                            ItemStack removeItem = new ItemStack(itemType);
+                            ItemMeta meta = removeItem.getItemMeta();
+                            meta.setDisplayName(itemName);
+                            removeItem.setItemMeta(meta);
+                            removeItem.setAmount(Math.abs(amount));
+                            player.getInventory().removeItem(removeItem);
+                            return true;
+                        } else if (Math.abs(amount) > 64){
+                            itemQuantity = itemQuantity + item.getAmount();
+                        }
+                    } else if (amount > 0){
+                        ItemStack addItem = new ItemStack(itemType);
+                        ItemMeta meta = addItem.getItemMeta();
+                        meta.setDisplayName(itemName);
+                        addItem.setItemMeta(meta);
+                        addItem.setAmount(amount);
+                        player.getInventory().addItem(addItem);
                         return true;
                     }
                 } else if (amount > 0) {
                     ItemStack addItem = new ItemStack(itemType);
+                    if (itemName != null) {
+                        ItemMeta meta = addItem.getItemMeta();
+                        meta.setDisplayName(itemName);
+                        addItem.setItemMeta(meta);
+                    }
                     addItem.setAmount(amount);
                     player.getInventory().addItem(addItem);
-//                    System.out.println("[BW] Added " + amount + " " + itemType);
                     return true;
                 }
             } else if (amount > 0) {
                 ItemStack addItem = new ItemStack(itemType);
+                if (itemName != null) {
+                    ItemMeta meta = addItem.getItemMeta();
+                    meta.setDisplayName(itemName);
+                    addItem.setItemMeta(meta);
+                }
                 addItem.setAmount(amount);
                 player.getInventory().addItem(addItem);
-//                System.out.println("[BW] Added " + amount + " " + itemType);
                 return true;
             }
         }
@@ -141,7 +167,11 @@ public class Econ {
             return true;
         }
 
-        player.sendMessage(ButtonWarpMessages.insufficientItems.replace("<amount>", ("" + Math.abs(amount))).replace("<items>", ("" + itemType)));
+        if (itemName != null) {
+            player.sendMessage(ButtonWarpMessages.insufficientItems.replace("<amount>", ("" + Math.abs(amount))).replace("<items>", ("" + itemName)));
+        } else {
+            player.sendMessage(ButtonWarpMessages.insufficientItems.replace("<amount>", ("" + Math.abs(amount))).replace("<items>", ("" + itemType)));
+        }
         return false;
     }
 

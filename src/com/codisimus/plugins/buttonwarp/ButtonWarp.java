@@ -1,9 +1,15 @@
 package com.codisimus.plugins.buttonwarp;
 
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -27,7 +33,7 @@ import java.util.logging.Logger;
  *
  * @author Codisimus
  */
-public class ButtonWarp extends JavaPlugin {
+public class ButtonWarp extends JavaPlugin implements CommandExecutor {
     static Server server;
     static Logger logger;
     static PluginManager pm;
@@ -101,6 +107,9 @@ public class ButtonWarp extends JavaPlugin {
         } catch (Exception ex) {
             logger.warning("version.properties file not found within jar");
         }
+
+        getCommand("cq").setExecutor(this);
+
         logger.info("ButtonWarp "+this.getDescription().getVersion()+" (Build "+version.getProperty("Build")+") is enabled!");
     }
 
@@ -156,7 +165,7 @@ public class ButtonWarp extends JavaPlugin {
 
                     //Construct a new Warp using the file name and values of message, amount, and source
                     Warp warp = new Warp(name.substring(0, name.length() - 11), ButtonWarpMessages.format(p.getProperty("Message")),
-                            Double.parseDouble(p.getProperty("Amount")), p.getProperty("Source"), Material.getMaterial(p.getProperty("ItemType")), Integer.parseInt(p.getProperty("ItemAmount")));
+                            Double.parseDouble(p.getProperty("Amount")), p.getProperty("Source"), Material.getMaterial(p.getProperty("ItemType")), Integer.parseInt(p.getProperty("ItemAmount")), p.getProperty("ItemName"));
 
                     if (p.containsKey("Location")) {
                         //Set the Location data
@@ -254,6 +263,9 @@ public class ButtonWarp extends JavaPlugin {
                 p.setProperty("Commands", command.substring(1, command.length() - 1));
             }
 
+            if (warp.itemName != null) {
+                p.setProperty("ItemName", warp.itemName);
+            }
             p.setProperty("ItemType", warp.itemType.toString());
             p.setProperty("ItemAmount", String.valueOf(warp.itemAmount));
 
@@ -380,4 +392,23 @@ public class ButtonWarp extends JavaPlugin {
         //Return null because the Warp does not exist
         return null;
     }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getLabel().equals("setblock")) {
+            //Check length here to ensure match
+
+            World world = Bukkit.getWorld(args[0]);
+            int x = Integer.parseInt(args[1]);
+            int y = Integer.parseInt(args[2]);
+            int z = Integer.parseInt(args[3]);
+            Material mat = Material.valueOf(args[4]);
+
+            Location loc = new Location(world, x, y, z);
+            loc.getBlock().setType(mat);
+        }
+
+        return false;
+    }
+
 }

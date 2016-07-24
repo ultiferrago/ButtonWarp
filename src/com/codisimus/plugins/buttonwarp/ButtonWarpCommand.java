@@ -641,13 +641,15 @@ public class ButtonWarpCommand implements CommandExecutor {
                 } else {
                     warp.itemType = player.getEquipment().getItemInMainHand().getType();
                     warp.itemAmount = amount;
-                    player.sendMessage("§5Item cost set to " + amount + " " + player.getEquipment().getItemInMainHand().getType().toString());
+                    warp.itemName = player.getEquipment().getItemInMainHand().getItemMeta().getDisplayName();
+                    player.sendMessage("§5Item cost set to " + amount + " " + player.getEquipment().getItemInMainHand().getItemMeta().getDisplayName() + "(s)");
                 }
             } else {
                 for (Material mat: Material.values()) {
                     if (mat.toString().equalsIgnoreCase(itemSelect)) {
                         warp.itemType = mat;
                         warp.itemAmount = amount;
+                        warp.itemName = null;
                         player.sendMessage("§5Item cost set to " + amount + " " + itemSelect);
                     }
                 }
@@ -659,13 +661,15 @@ public class ButtonWarpCommand implements CommandExecutor {
                 } else {
                     warp.itemType = player.getEquipment().getItemInMainHand().getType();
                     warp.itemAmount = amount;
-                    player.sendMessage("§5Item reward set to " + amount + " " + player.getEquipment().getItemInMainHand().getType().toString());
+                    warp.itemName = player.getEquipment().getItemInMainHand().getItemMeta().getDisplayName();
+                    player.sendMessage("§5Item cost set to " + amount + " " + player.getEquipment().getItemInMainHand().getItemMeta().getDisplayName() + "(s)");
                 }
             } else {
                 for (Material mat: Material.values()) {
                     if (mat.toString().equalsIgnoreCase(itemSelect)) {
                         warp.itemType = mat;
                         warp.itemAmount = amount;
+                        warp.itemName = null;
                         player.sendMessage("§5Item reward set to " + amount + " " + itemSelect);
                     }
                 }
@@ -999,6 +1003,7 @@ public class ButtonWarpCommand implements CommandExecutor {
         player.sendMessage("§2Commands:§b " + warp.commands);
         player.sendMessage("§2Restricted:§b " + warp.restricted);
         player.sendMessage("§2Item Cost Type:§b " + warp.itemType);
+        player.sendMessage("§2Item Name:§b " + warp.itemName);
         player.sendMessage("§2Item Cost Amount:§b " + warp.itemAmount);
     }
 
