@@ -63,6 +63,11 @@ public class Econ {
                     if (amount < 0 && (item.getAmount() >= Math.abs(amount) || item.getAmount() == 64)) {
                         if (Math.abs(amount) <= 64) {
                             ItemStack removeItem = new ItemStack(itemType);
+                            if (itemName != null) {
+                                ItemMeta meta = removeItem.getItemMeta();
+                                meta.setDisplayName(itemName);
+                                removeItem.setItemMeta(meta);
+                            }
                             removeItem.setAmount(Math.abs(amount));
                             player.getInventory().removeItem(removeItem);
                             return true;
@@ -71,11 +76,16 @@ public class Econ {
                         }
                     } else if (amount > 0){
                         ItemStack addItem = new ItemStack(itemType);
+                        if (itemName != null) {
+                            ItemMeta meta = addItem.getItemMeta();
+                            meta.setDisplayName(itemName);
+                            addItem.setItemMeta(meta);
+                        }
                         addItem.setAmount(amount);
                         player.getInventory().addItem(addItem);
                         return true;
                     }
-                } else if (item.getType() == itemType && item.getItemMeta().getDisplayName() == itemName) {
+                } else if (item.getType() == itemType && item.getItemMeta().getDisplayName().equals(itemName)) {
                     if (amount < 0 && (item.getAmount() >= Math.abs(amount) || item.getAmount() == 64)) {
                         if (Math.abs(amount) <= 64) {
                             ItemStack removeItem = new ItemStack(itemType);
@@ -162,6 +172,11 @@ public class Econ {
 
         if (itemQuantity >= Math.abs(amount)) {
             ItemStack removeItem = new ItemStack(itemType);
+            if (itemName != null) {
+                ItemMeta meta = removeItem.getItemMeta();
+                meta.setDisplayName(itemName);
+                removeItem.setItemMeta(meta);
+            }
             removeItem.setAmount(Math.abs(amount));
             player.getInventory().removeItem(removeItem);
             return true;
