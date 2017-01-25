@@ -107,8 +107,7 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
         } catch (Exception ex) {
             logger.warning("version.properties file not found within jar");
         }
-
-        getCommand("cq").setExecutor(this);
+        
 
         logger.info("ButtonWarp "+this.getDescription().getVersion()+" (Build "+version.getProperty("Build")+") is enabled!");
     }
@@ -397,15 +396,20 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getLabel().equals("setblock")) {
             //Check length here to ensure match
+            try {
+                World world = Bukkit.getWorld(args[0]);
 
-            World world = Bukkit.getWorld(args[0]);
-            int x = Integer.parseInt(args[1]);
-            int y = Integer.parseInt(args[2]);
-            int z = Integer.parseInt(args[3]);
-            Material mat = Material.valueOf(args[4]);
+                int x = Integer.parseInt(args[1]);
+                int y = Integer.parseInt(args[2]);
+                int z = Integer.parseInt(args[3]);
 
-            Location loc = new Location(world, x, y, z);
-            loc.getBlock().setType(mat);
+                Material mat = Material.valueOf(args[4]);
+
+                Location loc = new Location(world, x, y, z);
+                loc.getBlock().setType(mat);
+            } catch (NumberFormatException e) {
+                logger.warning("Invalid coordinates for button.");
+            }
         }
 
         return false;
