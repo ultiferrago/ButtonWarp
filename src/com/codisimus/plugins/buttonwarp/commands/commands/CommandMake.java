@@ -44,18 +44,18 @@ public class CommandMake implements CqCommand {
     private static void make(Player player, String name, boolean noWhere) {
         //Cancel if the Warp already exists
         if (ButtonWarp.findWarp(name) != null) {
-            player.sendMessage(Colorizer.aColor + "A Warp named " + Colorizer.bColor + name + Colorizer.aColor + " already exists.");
+            player.sendMessage(Colorizer.normColor + "A Warp named " + Colorizer.warpColor + name + Colorizer.normColor + " already exists.");
             return;
         }
 
         if (noWhere) {
             //Create a Warp with a null Location
             ButtonWarp.addWarp(new Warp(name, null));
-            player.sendMessage(Colorizer.aColor + "Warp " + Colorizer.bColor + name + Colorizer.aColor + " Made!");
+            player.sendMessage(Colorizer.normColor + "Warp " + Colorizer.warpColor + name + Colorizer.normColor + " Made!");
         } else {
             //Create a Warp with the Player's Location
             ButtonWarp.addWarp(new Warp(name, player));
-            player.sendMessage(Colorizer.aColor + "Warp " + Colorizer.bColor + name + Colorizer.aColor + " Made at current location!");
+            player.sendMessage(Colorizer.normColor + "Warp " + Colorizer.warpColor + name + Colorizer.normColor + " Made at current location!");
         }
     }
 }

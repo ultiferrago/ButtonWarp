@@ -5,5 +5,6 @@ import com.conquestiamc.GUI.API.Menu;
 /**
  * Created by Spearhartt on 1/30/2017.
  */
-public class MainMenu extends Menu {
+public class HelpButtonMenu extends Menu {
+
 }

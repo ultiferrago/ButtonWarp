@@ -409,7 +409,7 @@ public class ButtonWarpCommand implements CommandExecutor {
             case 1: list(player, null); return true;
             case 2: list(player, args[1]); return true;
             default: sendHelp(player); return true;
-            }
+        }
 
         case INFO:
             switch (args.length) {
@@ -1188,7 +1188,7 @@ public class ButtonWarpCommand implements CommandExecutor {
      * @param name The name of the Warp to be found
      * @return The Warp or null if none was found
      */
-    private static Warp getWarp(Player player, String name) {
+    public static Warp getWarp(Player player, String name) {
         Warp warp;
 
         if (name == null) {

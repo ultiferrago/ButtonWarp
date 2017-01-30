@@ -1,6 +1,27 @@
 package com.codisimus.plugins.buttonwarp.commands;
 
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandAccess;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandAllow;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandCmd;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandCost;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandDelete;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandDeny;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandGlobal;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandHelp;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandInfo;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandItems;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandLink;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandList;
 import com.codisimus.plugins.buttonwarp.commands.commands.CommandMake;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandMax;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandMove;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandMsg;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandReset;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandReward;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandRl;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandSource;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandTime;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandUnlink;
 import com.conquestiamc.CqAPI;
 import com.conquestiamc.logging.CqLogger;
 import org.bukkit.Bukkit;
@@ -18,14 +39,35 @@ import java.util.HashMap;
  */
 public class CommandModule implements CommandExecutor, Listener {
 
-    public static final String COMMAND_TAG = "[CommandModule]";
+    public static final String COMMAND_TAG = "[ButtonWarp CommandModule]";
 
     private static final HashMap<String, CqCommand> commandMap = new HashMap<String, CqCommand>();
 
     public CommandModule() {
         Bukkit.getPluginManager().registerEvents(this, CqAPI.CqAPI);
         CqAPI.getInstance().getCommand("bw").setExecutor(this);
+        registerCommand(new CommandAccess());
+        registerCommand(new CommandAllow());
+        registerCommand(new CommandCmd());
+        registerCommand(new CommandCost());
+        registerCommand(new CommandDelete());
+        registerCommand(new CommandDeny());
+        registerCommand(new CommandGlobal());
+        registerCommand(new CommandHelp());
+        registerCommand(new CommandInfo());
+        registerCommand(new CommandItems());
+        registerCommand(new CommandLink());
+        registerCommand(new CommandList());
         registerCommand(new CommandMake());
+        registerCommand(new CommandMax());
+        registerCommand(new CommandMove());
+        registerCommand(new CommandMsg());
+        registerCommand(new CommandReset());
+        registerCommand(new CommandReward());
+        registerCommand(new CommandRl());
+        registerCommand(new CommandSource());
+        registerCommand(new CommandTime());
+        registerCommand(new CommandUnlink());
     }
 
     @Override
@@ -48,8 +90,12 @@ public class CommandModule implements CommandExecutor, Listener {
     }
 
     public void registerCommand(CqCommand command) {
-        CqLogger.debug(COMMAND_TAG + "Registered command - " + command.getCommandLabel());
-        commandMap.put(command.getCommandLabel(), command);
+        if (command.getCommandLabel() != null) {
+            CqLogger.debug(COMMAND_TAG + "Registered command - " + command.getCommandLabel());
+            commandMap.put(command.getCommandLabel(), command);
+        } else {
+            CqLogger.debug(COMMAND_TAG + "You have an unset command label on - " + command.getClass().getName());
+        }
     }
 
     public void displayHelp(CommandSender sender) {
