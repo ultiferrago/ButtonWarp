@@ -11,7 +11,10 @@ public class Colorizer {
     public static String dColor;
 
     public static void formatAll() {
-
+        format(aColor);
+        format(bColor);
+        format(cColor);
+        format(dColor);
     }
 
     public static String format(String string) {
