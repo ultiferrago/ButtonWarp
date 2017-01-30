@@ -1,6 +1,14 @@
-package com.codisimus.plugins.buttonwarp;
+package com.codisimus.plugins.buttonwarp.commands;
 
 import java.util.*;
+
+import com.codisimus.plugins.buttonwarp.Button;
+import com.codisimus.plugins.buttonwarp.ButtonWarp;
+import com.codisimus.plugins.buttonwarp.ButtonWarpMessages;
+import com.codisimus.plugins.buttonwarp.utils.Econ;
+import com.codisimus.plugins.buttonwarp.Warp;
+import com.codisimus.plugins.buttonwarp.listeners.ButtonWarpDelayListener;
+import com.codisimus.plugins.buttonwarp.listeners.ButtonWarpListener;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,7 +17,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
 /**
@@ -18,17 +25,18 @@ import org.bukkit.scheduler.BukkitTask;
  * @author Codisimus
  */
 public class ButtonWarpCommand implements CommandExecutor {
-    static int multiplier;
-    static String command;
+    public static int multiplier;
+    public static String command;
     private static enum Action {
         HELP, MAKE, MOVE, LINK, UNLINK, DELETE, COST, REWARD, ITEMS, ACCESS, SOURCE,
         CMD, MSG, TIME, GLOBAL, MAX, ALLOW, DENY, LIST, INFO, RESET, RL
     }
     private static enum Help { CREATE, SETUP, BUTTON }
-    static final EnumSet<Material> LINKABLE = EnumSet.of(
+    public static final EnumSet<Material> LINKABLE = EnumSet.of(
             Material.LEVER, Material.STONE_PLATE, Material.WOOD_PLATE,
             Material.STONE_BUTTON, Material.WOOD_BUTTON, Material.TRIPWIRE,
             Material.TRIPWIRE_HOOK, Material.DETECTOR_RAIL);
+    static final ButtonWarpMessages message = new ButtonWarpMessages();
 
     /**
      * Listens for ButtonWarp commands to execute them
@@ -69,7 +77,7 @@ public class ButtonWarpCommand implements CommandExecutor {
 
             //Cancel if the Player does not have permission to use the command
             if (!ButtonWarp.hasPermission(player, "commandwarp")) {
-                player.sendMessage(ButtonWarpMessages.permission);
+                player.sendMessage(message.permission);
                 return true;
             }
 

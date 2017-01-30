@@ -1,7 +1,8 @@
-package com.codisimus.plugins.buttonwarp;
+package com.codisimus.plugins.buttonwarp.listeners;
 
 import java.util.HashMap;
-import java.util.HashSet;
+
+import com.codisimus.plugins.buttonwarp.ButtonWarpMessages;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +13,7 @@ import org.bukkit.scheduler.BukkitTask;
  * Checks if warping Players leave their current Block.
  */
 public class ButtonWarpDelayListener implements Listener {
-    static HashMap<Player, BukkitTask> warpers = new HashMap<Player, BukkitTask>();
+    public static HashMap<Player, BukkitTask> warpers = new HashMap<Player, BukkitTask>();
 
     @EventHandler (ignoreCancelled = true)
     public void onPlayerMove(PlayerMoveEvent event) {

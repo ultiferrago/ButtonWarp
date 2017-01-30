@@ -1,5 +1,7 @@
-package com.codisimus.plugins.buttonwarp;
+package com.codisimus.plugins.buttonwarp.listeners;
 
+import com.codisimus.plugins.buttonwarp.ButtonWarp;
+import com.codisimus.plugins.buttonwarp.Warp;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

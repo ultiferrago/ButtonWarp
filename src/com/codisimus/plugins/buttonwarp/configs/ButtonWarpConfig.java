@@ -1,4 +1,10 @@
-package com.codisimus.plugins.buttonwarp;
+package com.codisimus.plugins.buttonwarp.configs;
+
+import com.codisimus.plugins.buttonwarp.ButtonWarp;
+import com.codisimus.plugins.buttonwarp.commands.ButtonWarpCommand;
+import com.codisimus.plugins.buttonwarp.ButtonWarpMessages;
+import com.codisimus.plugins.buttonwarp.Warp;
+import com.codisimus.plugins.buttonwarp.listeners.ButtonWarpListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -64,6 +70,8 @@ public class ButtonWarpConfig {
             ButtonWarpMessages.timeRemainingReward = loadString("TimeRemainingRewardMessage", string);
             ButtonWarpMessages.timeRemainingUse = loadString("TimeRemainingUseMessage", string);
             ButtonWarpMessages.insufficientItems = loadString("InsufficientItemsMessage", string);
+
+
 
             ButtonWarpMessages.formatAll();
         } catch (Exception missingProp) {

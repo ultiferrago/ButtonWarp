@@ -1,6 +1,12 @@
-package com.codisimus.plugins.buttonwarp;
+package com.codisimus.plugins.buttonwarp.listeners;
 
 import java.util.HashSet;
+
+import com.codisimus.plugins.buttonwarp.Button;
+import com.codisimus.plugins.buttonwarp.ButtonWarp;
+import com.codisimus.plugins.buttonwarp.commands.ButtonWarpCommand;
+import com.codisimus.plugins.buttonwarp.ButtonWarpMessages;
+import com.codisimus.plugins.buttonwarp.Warp;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -18,7 +24,7 @@ import org.bukkit.scheduler.BukkitTask;
  * @author Codisimus
  */
 public class ButtonWarpListener implements Listener {
-    static int delay;
+    public static int delay;
     private static HashSet<String> antiSpam = new HashSet<String>();
 
     /**

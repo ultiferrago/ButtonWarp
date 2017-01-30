@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Properties;
 
+import com.codisimus.plugins.buttonwarp.commands.ButtonWarpCommandSender;
+import com.codisimus.plugins.buttonwarp.utils.Econ;
 import org.apache.commons.lang.time.DateUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -21,9 +23,9 @@ import org.bukkit.inventory.ItemStack;
  * @author Codisimus
  */
 public class Warp implements Comparable {
-    static boolean log;
-    static boolean broadcast;
-    static boolean sound;
+    public static boolean log;
+    public static boolean broadcast;
+    public static boolean sound;
     private static ButtonWarpCommandSender cs = new ButtonWarpCommandSender();;
 
     public String name; //A unique name for the Warp

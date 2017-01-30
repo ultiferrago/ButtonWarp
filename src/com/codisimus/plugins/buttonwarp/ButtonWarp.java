@@ -1,15 +1,17 @@
 package com.codisimus.plugins.buttonwarp;
 
+import com.codisimus.plugins.buttonwarp.configs.ButtonWarpConfig;
+import com.codisimus.plugins.buttonwarp.listeners.ButtonWarpDelayListener;
+import com.codisimus.plugins.buttonwarp.listeners.ButtonWarpListener;
+import com.codisimus.plugins.buttonwarp.listeners.ButtonWarpVehicleListener;
+import com.codisimus.plugins.buttonwarp.utils.Econ;
+import com.codisimus.plugins.buttonwarp.commands.CommandModule;
+import com.conquestiamc.CqAPI;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Server;
-import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -19,11 +21,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Properties;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -34,20 +34,21 @@ import java.util.logging.Logger;
  * @author Codisimus
  */
 public class ButtonWarp extends JavaPlugin implements CommandExecutor {
-    static Server server;
-    static Logger logger;
-    static PluginManager pm;
-    static Plugin plugin;
-    static int defaultDays;
-    static int defaultHours;
-    static int defaultMinutes;
-    static int defaultSeconds;
-    static boolean defaultTakeItems;
-    static boolean defaultRestricted;
-    static int defaultMax;
-    static String dataFolder;
+    public static Server server;
+    public static Logger logger;
+    public static PluginManager pm;
+    public static Plugin plugin;
+    public static int defaultDays;
+    public static int defaultHours;
+    public static int defaultMinutes;
+    public static int defaultSeconds;
+    public static boolean defaultTakeItems;
+    public static boolean defaultRestricted;
+    public static int defaultMax;
+    public static String dataFolder;
+    private static CommandModule commandHandler;
     private static TreeMap<String, Warp> warps = new TreeMap<String, Warp>();
-    static ArrayList<String> opPlayers = new ArrayList<>();
+    public static ArrayList<String> opPlayers = new ArrayList<>();
 
     /**
      * Loads this Plugin by doing the following:
@@ -59,7 +60,7 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
     @Override
     public void onEnable () {
         //Metrics hook
-        try { new Metrics(this).start(); } catch (IOException e) {}
+        //try { new Metrics(this).start(); } catch (IOException e) {}
 
         server = getServer();
         logger = getLogger();
@@ -97,9 +98,12 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
             pm.registerEvents(new ButtonWarpDelayListener(), this);
         }
 
+        //Register commands
+        commandHandler = new CommandModule();
+
         //Register the command found in the plugin.yml
-        ButtonWarpCommand.command = (String)this.getDescription().getCommands().keySet().toArray()[0];
-        getCommand(ButtonWarpCommand.command).setExecutor(new ButtonWarpCommand());
+        //ButtonWarpCommand.command = (String)this.getDescription().getCommands().keySet().toArray()[0];
+        //getCommand(ButtonWarpCommand.command).setExecutor(new ButtonWarpCommand());
 
         Properties version = new Properties();
         try {
@@ -107,7 +111,7 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
         } catch (Exception ex) {
             logger.warning("version.properties file not found within jar");
         }
-        
+
 
         logger.info("ButtonWarp "+this.getDescription().getVersion()+" (Build "+version.getProperty("Build")+") is enabled!");
     }
@@ -392,6 +396,7 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
         return null;
     }
 
+    /*
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getLabel().equals("setblock")) {
@@ -414,5 +419,6 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
 
         return false;
     }
+    */
 
 }
