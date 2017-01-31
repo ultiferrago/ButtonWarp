@@ -20,16 +20,16 @@ public class CommandItems implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 3:
+                case 2:
                     try {
-                        items((Player) sender, null, Integer.parseInt(args.get(1)), args.get(2));
+                        items((Player) sender, null, Integer.parseInt(args.get(0)), args.get(1));
                         return true;
                     } catch (Exception notInt) {
                         break;
                     }
-                case 4:
+                case 3:
                     try {
-                        items((Player) sender, args.get(1), Integer.parseInt(args.get(2)), args.get(3));
+                        items((Player) sender, args.get(0), Integer.parseInt(args.get(1)), args.get(2));
                         return true;
                     } catch (Exception notInt) {
                         break;
@@ -37,7 +37,7 @@ public class CommandItems implements CqCommand {
 
                 default: break;
             }
-            new HelpSetupMenu().ShowMenu((Player) sender);
+            new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
             return true;
         }
         return false;

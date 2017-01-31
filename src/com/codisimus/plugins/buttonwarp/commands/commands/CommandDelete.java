@@ -21,14 +21,14 @@ public class CommandDelete implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 1:
+                case 0:
                     delete((Player) sender, null);
                     return true;
-                case 2:
-                    delete((Player) sender, args.get(1));
+                case 1:
+                    delete((Player) sender, args.get(0));
                     return true;
                 default:
-                    new HelpCreateMenu().ShowMenu((Player) sender);
+                    new HelpCreateMenu((Player) sender).ShowMenu((Player) sender);
             }
         }
         return false;

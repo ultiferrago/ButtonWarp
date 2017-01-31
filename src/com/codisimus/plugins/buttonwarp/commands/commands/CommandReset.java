@@ -4,6 +4,7 @@ import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
 import com.codisimus.plugins.buttonwarp.menu.MainMenu;
+import com.codisimus.plugins.buttonwarp.utils.Colorizer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -20,12 +21,12 @@ public class CommandReset implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 1: reset((Player) sender, null); return true;
-                case 2: reset((Player) sender, args.get(1)); return true;
+                case 0: reset((Player) sender, null); return true;
+                case 1: reset((Player) sender, args.get(0)); return true;
                 default: break;
             }
 
-            new MainMenu().ShowMenu((Player) sender);
+            new MainMenu((Player) sender).ShowMenu((Player) sender);
             return true;
         }
         return false;
@@ -45,13 +46,13 @@ public class CommandReset implements CqCommand {
 
             //Cancel if the Warp does not exist
             if (warp == null ) {
-                player.sendMessage("§4Target Block is not linked to a Warp");
+                player.sendMessage(Colorizer.badColor + "Target Block is not linked to a Warp");
                 return;
             }
 
             warp.reset(block);
 
-            player.sendMessage("§5Target Button has been reset.");
+            player.sendMessage(Colorizer.normColor + "Target Button has been reset.");
             return;
         }
 
@@ -61,7 +62,7 @@ public class CommandReset implements CqCommand {
                 warp.reset(null);
             }
 
-            player.sendMessage("§5All Buttons in all Warps have been reset.");
+            player.sendMessage(Colorizer.normColor + "All Buttons in all Warps have been reset.");
             return;
         }
 
@@ -70,15 +71,15 @@ public class CommandReset implements CqCommand {
 
         //Cancel if the Warp does not exist
         if (warp == null ) {
-            player.sendMessage("§4Warp §6" + name + "§4 does not exsist.");
+            player.sendMessage(Colorizer.badColor + "Warp " + Colorizer.warpColor + name + Colorizer.badColor + " does not exist.");
             return;
         }
 
         //Reset all Buttons linked to the Warp
         warp.reset(null);
 
-        player.sendMessage("§5All Buttons in Warp §6"
-                + name + "§5 have been reset.");
+        player.sendMessage(Colorizer.normColor + "All Buttons in Warp " + Colorizer.warpColor
+                + name + Colorizer.normColor + " have been reset.");
         warp.save();
     }
 }

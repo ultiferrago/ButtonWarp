@@ -18,21 +18,21 @@ public class CommandSource implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 2:
-                    source((Player) sender, null, false, args.get(1));
+                case 1:
+                    source((Player) sender, null, false, args.get(0));
                     return true;
 
-                case 3:
-                    if (args.get(1).equals("bank")) {
-                        source((Player) sender, null, true, args.get(2));
+                case 2:
+                    if (args.get(0).equals("bank")) {
+                        source((Player) sender, null, true, args.get(1));
                     } else {
-                        source((Player) sender, args.get(1), false, args.get(2));
+                        source((Player) sender, args.get(0), false, args.get(1));
                     }
                     return true;
 
                 case 4:
-                    if (args.get(2).equals("bank")) {
-                        source((Player) sender, args.get(1), true, args.get(3));
+                    if (args.get(1).equals("bank")) {
+                        source((Player) sender, args.get(0), true, args.get(2));
                     } else {
                         break;
                     }

@@ -20,12 +20,12 @@ public class CommandMove implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 2:
-                    move((Player) sender, args.get(1), false);
+                case 1:
+                    move((Player) sender, args.get(0), false);
                     return true;
-                case 3:
-                    if (args.get(2).equalsIgnoreCase("nowhere")) {
-                        move((Player) sender, args.get(1), true);
+                case 2:
+                    if (args.get(1).equalsIgnoreCase("nowhere")) {
+                        move((Player) sender, args.get(0), true);
                         return true;
                     }
                     break;
@@ -33,7 +33,7 @@ public class CommandMove implements CqCommand {
                     break;
             }
 
-            new HelpCreateMenu().ShowMenu((Player) sender);
+            new HelpCreateMenu((Player) sender).ShowMenu((Player) sender);
         }
         return false;
     }

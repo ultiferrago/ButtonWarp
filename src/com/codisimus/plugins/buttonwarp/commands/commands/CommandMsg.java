@@ -18,17 +18,17 @@ public class CommandMsg implements CqCommand {
     @Override
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
-            if (args.size() < 3) {
-                new HelpSetupMenu().ShowMenu((Player) sender);
+            if (args.size() < 2) {
+                new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
                 return true;
             }
 
             String msg = "";
-            for (int i=2; i < args.size(); i++) {
+            for (int i=1; i < args.size(); i++) {
                 msg = msg.concat(args.get(i).concat(" "));
             }
 
-            msg((Player) sender, args.get(1), msg);
+            msg((Player) sender, args.get(0), msg);
             return true;
         }
         return false;

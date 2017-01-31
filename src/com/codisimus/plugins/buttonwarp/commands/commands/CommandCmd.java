@@ -19,15 +19,15 @@ public class CommandCmd implements CqCommand {
     @Override
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
-            if (args.size() < 3) {
-                new HelpSetupMenu().ShowMenu((Player) sender);
+            if (args.size() < 2) {
+                new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
                 return true;
             }
 
-            if (args.get(1).equalsIgnoreCase("add") || args.get(1).equalsIgnoreCase("remove")) {
-                setCommand((Player) sender, null, args.get(1).equalsIgnoreCase("add"), concatArgs(args, 2));
+            if (args.get(0).equalsIgnoreCase("add") || args.get(0).equalsIgnoreCase("remove")) {
+                setCommand((Player) sender, null, args.get(0).equalsIgnoreCase("add"), concatArgs(args, 1));
             } else {
-                setCommand((Player) sender, args.get(1), args.get(2).equalsIgnoreCase("add"), concatArgs(args, 3));
+                setCommand((Player) sender, args.get(0), args.get(1).equalsIgnoreCase("add"), concatArgs(args, 2));
             }
             return true;
         }

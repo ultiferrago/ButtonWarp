@@ -19,30 +19,30 @@ public class CommandTime implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 5:
+                case 4:
                     try {
-                        time((Player) sender, null, Integer.parseInt(args.get(1)), Integer.parseInt(args.get(2)),
-                                Integer.parseInt(args.get(3)), Integer.parseInt(args.get(4)));
+                        time((Player) sender, null, Integer.parseInt(args.get(0)), Integer.parseInt(args.get(1)),
+                                Integer.parseInt(args.get(2)), Integer.parseInt(args.get(3)));
                         return true;
                     } catch (Exception notInt) {
-                        new HelpSetupMenu().ShowMenu((Player) sender);
+                        new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
                         break;
                     }
 
-                case 6:
+                case 5:
                     try {
-                        time((Player) sender, args.get(1), Integer.parseInt(args.get(2)), Integer.parseInt(args.get(3)),
-                                Integer.parseInt(args.get(4)), Integer.parseInt(args.get(5)));
+                        time((Player) sender, args.get(0), Integer.parseInt(args.get(1)), Integer.parseInt(args.get(2)),
+                                Integer.parseInt(args.get(3)), Integer.parseInt(args.get(4)));
                         return true;
                     } catch (Exception notInt) {
-                        new HelpSetupMenu().ShowMenu((Player) sender);
+                        new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
                         break;
                     }
 
                 default: break;
             }
 
-            new HelpSetupMenu().ShowMenu((Player) sender);
+            new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
             return true;
         }
         return false;

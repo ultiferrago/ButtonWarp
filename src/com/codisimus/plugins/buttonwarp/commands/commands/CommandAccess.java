@@ -19,10 +19,10 @@ public class CommandAccess  implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 2: access((Player) sender, null, args.get(1)); return true;
-                case 3: access((Player) sender, args.get(1), args.get(2)); return true;
+                case 1: access((Player) sender, null, args.get(0)); return true;
+                case 2: access((Player) sender, args.get(0), args.get(1)); return true;
                 default:
-                    new HelpSetupMenu().ShowMenu((Player) sender);
+                    new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
                     return true;
             }
         }

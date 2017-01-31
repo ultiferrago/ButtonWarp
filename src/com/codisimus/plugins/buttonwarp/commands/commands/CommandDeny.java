@@ -4,7 +4,7 @@ import com.codisimus.plugins.buttonwarp.Button;
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
-import com.codisimus.plugins.buttonwarp.menu.HelpButtonMenu;
+import com.codisimus.plugins.buttonwarp.menu.HelpSetupMenu;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
@@ -20,10 +20,10 @@ public class CommandDeny implements CqCommand {
     @Override
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
-            if (args.size() == 2 && args.get(1).startsWith("item")) {
+            if (args.size() == 1 && args.get(0).startsWith("item")) {
                 deny((Player) sender);
             } else {
-                new HelpButtonMenu().ShowMenu((Player) sender);
+                new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
                 return true;
             }
             return true;

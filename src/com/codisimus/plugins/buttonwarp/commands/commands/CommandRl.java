@@ -15,10 +15,10 @@ public class CommandRl implements CqCommand {
     @Override
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
-            if (args.size() == 1) {
+            if (args.size() == 0) {
                 ButtonWarp.rl((Player) sender);
             } else {
-                new MainMenu().ShowMenu((Player) sender);
+                new MainMenu((Player) sender).ShowMenu((Player) sender);
             }
             return true;
         }

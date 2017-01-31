@@ -5,6 +5,7 @@ import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
 import com.codisimus.plugins.buttonwarp.menu.HelpCreateMenu;
 import com.codisimus.plugins.buttonwarp.utils.Colorizer;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -18,19 +19,19 @@ public class CommandMake implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if(sender instanceof Player) {
             switch (args.size()) {
-                case 2:
-                    make((Player)sender, args.get(1), true);
+                case 1:
+                    make((Player)sender, args.get(0), false);
                     return true;
-                case 3:
-                    if (args.get(2).equalsIgnoreCase("nowhere")) {
-                        make((Player)sender, args.get(1), true);
+                case 2:
+                    if (args.get(1).equalsIgnoreCase("nowhere")) {
+                        make((Player)sender, args.get(0), true);
                         return true;
                     }
                     break;
                 default: break;
             }
 
-            new HelpCreateMenu().ShowMenu((Player)sender);
+            new HelpCreateMenu((Player) sender).ShowMenu((Player)sender);
             return true;
         }
         return false;

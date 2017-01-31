@@ -6,7 +6,6 @@ import com.codisimus.plugins.buttonwarp.listeners.ButtonWarpListener;
 import com.codisimus.plugins.buttonwarp.listeners.ButtonWarpVehicleListener;
 import com.codisimus.plugins.buttonwarp.utils.Econ;
 import com.codisimus.plugins.buttonwarp.commands.CommandModule;
-import com.conquestiamc.CqAPI;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
 import org.bukkit.Server;
@@ -38,6 +37,7 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
     public static Logger logger;
     public static PluginManager pm;
     public static Plugin plugin;
+    private static ButtonWarp instance;
     public static int defaultDays;
     public static int defaultHours;
     public static int defaultMinutes;
@@ -49,6 +49,7 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
     private static CommandModule commandHandler;
     private static TreeMap<String, Warp> warps = new TreeMap<String, Warp>();
     public static ArrayList<String> opPlayers = new ArrayList<>();
+    public static String command_label = "bw";
 
     /**
      * Loads this Plugin by doing the following:
@@ -100,6 +101,7 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
 
         //Register commands
         commandHandler = new CommandModule();
+        getCommand(command_label).setExecutor(commandHandler);
 
         //Register the command found in the plugin.yml
         //ButtonWarpCommand.command = (String)this.getDescription().getCommands().keySet().toArray()[0];
@@ -394,6 +396,10 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
 
         //Return null because the Warp does not exist
         return null;
+    }
+
+    public static ButtonWarp getInstance() {
+        return instance;
     }
 
     /*

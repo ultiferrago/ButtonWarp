@@ -4,13 +4,15 @@ version: 2.2.3
 author: Codisimus
 website: www.codisimus.com
 description: Teleport using buttons with price/reward/custom messages
-depend: [Vault]
+depend: [Vault, ConquestiaAPI]
 startup: postworld
 commands:
   bw:
     description: Used to setup and manage Warps
     usage: /<command> help
     aliases: [buttonwarp]
+  "bw":
+    description: something here.
   setblock:
     description: Helps set blocks
     usage: /<command> help

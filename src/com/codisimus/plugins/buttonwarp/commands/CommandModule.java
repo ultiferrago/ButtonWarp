@@ -1,5 +1,7 @@
 package com.codisimus.plugins.buttonwarp.commands;
 
+import com.codisimus.plugins.buttonwarp.Button;
+import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.commands.commands.CommandAccess;
 import com.codisimus.plugins.buttonwarp.commands.commands.CommandAllow;
 import com.codisimus.plugins.buttonwarp.commands.commands.CommandCmd;
@@ -44,8 +46,7 @@ public class CommandModule implements CommandExecutor, Listener {
     private static final HashMap<String, CqCommand> commandMap = new HashMap<String, CqCommand>();
 
     public CommandModule() {
-        Bukkit.getPluginManager().registerEvents(this, CqAPI.CqAPI);
-        CqAPI.getInstance().getCommand("bw").setExecutor(this);
+        Bukkit.getPluginManager().registerEvents(this, ButtonWarp.plugin);
         registerCommand(new CommandAccess());
         registerCommand(new CommandAllow());
         registerCommand(new CommandCmd());

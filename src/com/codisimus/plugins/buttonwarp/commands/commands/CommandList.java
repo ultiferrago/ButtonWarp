@@ -20,9 +20,9 @@ public class CommandList implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 1: list((Player) sender, null); return true;
-                case 2: list((Player) sender, args.get(1)); return true;
-                default: new MainMenu().ShowMenu((Player) sender); return true;
+                case 0: list((Player) sender, null); return true;
+                case 1: list((Player) sender, args.get(0)); return true;
+                default: new MainMenu((Player) sender).ShowMenu((Player) sender); return true;
             }
         }
         return false;

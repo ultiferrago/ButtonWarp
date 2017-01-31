@@ -19,17 +19,17 @@ public class CommandReward implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 2:
+                case 1:
                     try {
-                        amount((Player) sender, null, Math.abs(Double.parseDouble(args.get(1))));
+                        amount((Player) sender, null, Math.abs(Double.parseDouble(args.get(0))));
                         return true;
                     } catch (Exception notDouble) {
                         break;
                     }
 
-                case 3:
+                case 2:
                     try {
-                        amount((Player) sender, args.get(1), Math.abs(Double.parseDouble(args.get(2))));
+                        amount((Player) sender, args.get(0), Math.abs(Double.parseDouble(args.get(1))));
                         return true;
                     } catch (Exception notDouble) {
                         break;
@@ -37,7 +37,7 @@ public class CommandReward implements CqCommand {
                 default: break;
             }
 
-            new HelpSetupMenu().ShowMenu((Player) sender);
+            new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
             return true;
         }
         return false;

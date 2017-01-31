@@ -4,7 +4,7 @@ import com.codisimus.plugins.buttonwarp.Button;
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
-import com.codisimus.plugins.buttonwarp.menu.HelpButtonMenu;
+import com.codisimus.plugins.buttonwarp.menu.HelpSetupMenu;
 import com.codisimus.plugins.buttonwarp.utils.Colorizer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -21,15 +21,15 @@ public class CommandMax implements CqCommand {
     @Override
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
-            if (args.size() == 2) {
+            if (args.size() == 1) {
                 try {
-                    max((Player) sender, Integer.parseInt(args.get(1)));
+                    max((Player) sender, Integer.parseInt(args.get(0)));
                     return true;
                 } catch (Exception notInt) {
                 }
             }
 
-            new HelpButtonMenu().ShowMenu((Player) sender);
+            new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
             return true;
         }
         return false;

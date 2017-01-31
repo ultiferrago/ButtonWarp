@@ -20,17 +20,17 @@ public class CommandGlobal implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             switch (args.size()) {
-                case 2: //Name is not provided
+                case 1: //Name is not provided
                     try {
-                        global((Player) sender, null, Boolean.parseBoolean(args.get(1)));
+                        global((Player) sender, null, Boolean.parseBoolean(args.get(0)));
                         return true;
                     } catch (Exception notBool) {
                         break;
                     }
 
-                case 3: //Name is provided
+                case 2: //Name is provided
                     try {
-                        global((Player) sender, args.get(1), Boolean.parseBoolean(args.get(2)));
+                        global((Player) sender, args.get(0), Boolean.parseBoolean(args.get(1)));
                         return true;
                     } catch (Exception notBool) {
                         break;
@@ -39,7 +39,7 @@ public class CommandGlobal implements CqCommand {
                 default: break;
             }
 
-            new HelpSetupMenu().ShowMenu((Player) sender);
+            new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
             return true;
         }
         return false;

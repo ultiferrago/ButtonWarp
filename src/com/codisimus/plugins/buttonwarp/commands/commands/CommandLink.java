@@ -27,11 +27,11 @@ public class CommandLink implements CqCommand {
     @Override
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
-            if (args.size() == 2) {
-                link((Player) sender, args.get(1));
+            if (args.size() == 1) {
+                link((Player) sender, args.get(0));
                 return true;
             } else {
-                new HelpCreateMenu().ShowMenu((Player) sender);
+                new HelpCreateMenu((Player) sender).ShowMenu((Player) sender);
                 return true;
             }
         }
