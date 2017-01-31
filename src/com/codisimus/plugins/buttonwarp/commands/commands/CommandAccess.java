@@ -3,6 +3,7 @@ package com.codisimus.plugins.buttonwarp.commands.commands;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
 import com.codisimus.plugins.buttonwarp.menu.HelpSetupMenu;
+import com.codisimus.plugins.buttonwarp.menu.MainMenu;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -22,7 +23,7 @@ public class CommandAccess  implements CqCommand {
                 case 1: access((Player) sender, null, args.get(0)); return true;
                 case 2: access((Player) sender, args.get(0), args.get(1)); return true;
                 default:
-                    new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
+                    new HelpSetupMenu(new MainMenu()).ShowMenu((Player) sender);
                     return true;
             }
         }

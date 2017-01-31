@@ -20,21 +20,21 @@ public class CommandHelp implements CqCommand {
             if (args.size() == 1) {
                 switch (args.get(1).toLowerCase()) {
                     case "create":
-                        new HelpCreateMenu((Player) sender).ShowMenu((Player) sender);
+                        new HelpCreateMenu(new MainMenu()).ShowMenu((Player) sender);
                         return true;
                     case "setup":
-                        new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
+                        new HelpSetupMenu(new MainMenu()).ShowMenu((Player) sender);
                         return true;
                     case "button":
-                        new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
+                        new HelpSetupMenu(new MainMenu()).ShowMenu((Player) sender);
                         return true;
                     default:
                         break;
                 }
-                new MainMenu((Player) sender).ShowMenu((Player) sender);
+                new MainMenu().ShowMenu((Player) sender);
                 return true;
             } else {
-                new MainMenu((Player) sender).ShowMenu((Player) sender);
+                new MainMenu().ShowMenu((Player) sender);
                 return true;
             }
         }

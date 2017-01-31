@@ -4,6 +4,7 @@ import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
 import com.codisimus.plugins.buttonwarp.menu.HelpCreateMenu;
+import com.codisimus.plugins.buttonwarp.menu.MainMenu;
 import com.codisimus.plugins.buttonwarp.utils.Colorizer;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -33,7 +34,7 @@ public class CommandMove implements CqCommand {
                     break;
             }
 
-            new HelpCreateMenu((Player) sender).ShowMenu((Player) sender);
+            new HelpCreateMenu(new MainMenu()).ShowMenu((Player) sender);
         }
         return false;
     }

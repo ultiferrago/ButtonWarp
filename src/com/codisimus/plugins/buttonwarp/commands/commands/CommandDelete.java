@@ -4,6 +4,7 @@ import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
 import com.codisimus.plugins.buttonwarp.menu.HelpCreateMenu;
+import com.codisimus.plugins.buttonwarp.menu.MainMenu;
 import com.codisimus.plugins.buttonwarp.utils.Colorizer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,7 +29,7 @@ public class CommandDelete implements CqCommand {
                     delete((Player) sender, args.get(0));
                     return true;
                 default:
-                    new HelpCreateMenu((Player) sender).ShowMenu((Player) sender);
+                    new HelpCreateMenu(new MainMenu()).ShowMenu((Player) sender);
             }
         }
         return false;

@@ -3,6 +3,7 @@ package com.codisimus.plugins.buttonwarp.commands.commands;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
 import com.codisimus.plugins.buttonwarp.menu.HelpSetupMenu;
+import com.codisimus.plugins.buttonwarp.menu.MainMenu;
 import com.codisimus.plugins.buttonwarp.utils.Colorizer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,7 +26,7 @@ public class CommandTime implements CqCommand {
                                 Integer.parseInt(args.get(2)), Integer.parseInt(args.get(3)));
                         return true;
                     } catch (Exception notInt) {
-                        new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
+                        new HelpSetupMenu(new MainMenu()).ShowMenu((Player) sender);
                         break;
                     }
 
@@ -35,14 +36,14 @@ public class CommandTime implements CqCommand {
                                 Integer.parseInt(args.get(3)), Integer.parseInt(args.get(4)));
                         return true;
                     } catch (Exception notInt) {
-                        new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
+                        new HelpSetupMenu(new MainMenu()).ShowMenu((Player) sender);
                         break;
                     }
 
                 default: break;
             }
 
-            new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
+            new HelpSetupMenu(new MainMenu()).ShowMenu((Player) sender);
             return true;
         }
         return false;

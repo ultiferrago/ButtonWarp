@@ -4,6 +4,7 @@ import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
 import com.codisimus.plugins.buttonwarp.menu.HelpCreateMenu;
+import com.codisimus.plugins.buttonwarp.menu.MainMenu;
 import com.codisimus.plugins.buttonwarp.utils.Colorizer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -30,7 +31,7 @@ public class CommandUnlink implements CqCommand {
                 unlink((Player) sender);
                 return true;
             } else {
-                new HelpCreateMenu((Player) sender).ShowMenu((Player) sender);
+                new HelpCreateMenu(new MainMenu()).ShowMenu((Player) sender);
                 return true;
             }
         }

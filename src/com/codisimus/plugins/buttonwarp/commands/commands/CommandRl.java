@@ -18,7 +18,7 @@ public class CommandRl implements CqCommand {
             if (args.size() == 0) {
                 ButtonWarp.rl((Player) sender);
             } else {
-                new MainMenu((Player) sender).ShowMenu((Player) sender);
+                new MainMenu().ShowMenu((Player) sender);
             }
             return true;
         }

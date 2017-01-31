@@ -26,7 +26,7 @@ public class CommandReset implements CqCommand {
                 default: break;
             }
 
-            new MainMenu((Player) sender).ShowMenu((Player) sender);
+            new MainMenu().ShowMenu((Player) sender);
             return true;
         }
         return false;

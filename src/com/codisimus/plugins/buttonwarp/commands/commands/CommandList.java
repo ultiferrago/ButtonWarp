@@ -22,7 +22,7 @@ public class CommandList implements CqCommand {
             switch (args.size()) {
                 case 0: list((Player) sender, null); return true;
                 case 1: list((Player) sender, args.get(0)); return true;
-                default: new MainMenu((Player) sender).ShowMenu((Player) sender); return true;
+                default: new MainMenu().ShowMenu((Player) sender); return true;
             }
         }
         return false;

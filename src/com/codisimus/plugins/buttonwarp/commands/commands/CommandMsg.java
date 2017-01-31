@@ -5,6 +5,7 @@ import com.codisimus.plugins.buttonwarp.ButtonWarpMessages;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
 import com.codisimus.plugins.buttonwarp.menu.HelpSetupMenu;
+import com.codisimus.plugins.buttonwarp.menu.MainMenu;
 import com.codisimus.plugins.buttonwarp.utils.Colorizer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,7 +20,7 @@ public class CommandMsg implements CqCommand {
     public boolean execute(CommandSender sender, ArrayList<String> args) {
         if (sender instanceof Player) {
             if (args.size() < 2) {
-                new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
+                new HelpSetupMenu(new MainMenu()).ShowMenu((Player) sender);
                 return true;
             }
 

@@ -1,7 +1,6 @@
 package com.codisimus.plugins.buttonwarp.menu;
 
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
-import com.conquestiamc.GUI.API.BackButton;
 import com.conquestiamc.GUI.API.Button;
 import com.conquestiamc.GUI.API.Menu;
 import com.conquestiamc.GUI.API.MenuInteractionEvent;
@@ -13,9 +12,16 @@ import org.bukkit.entity.Player;
  * Created by Spearhartt on 1/30/2017.
  */
 public class HelpSetupMenu extends Menu {
-    public HelpSetupMenu(Player player) {
+    public Menu previous;
+
+    public HelpSetupMenu(Menu prevMenu) {
+        setName(ChatColor.AQUA + "Warp Properties");
+        previous = prevMenu;
+    }
+
+    protected void CreateMenu(Player player) {
         if (!ButtonWarp.hasPermission(player, "create")) {
-            new MainMenu(player).ShowMenu(player);
+            new MainMenu().ShowMenu(player);
         }
 
         final HelpSetupMenu thisMenu = this;
@@ -198,7 +204,6 @@ public class HelpSetupMenu extends Menu {
         });
         menuMap.put(loc++, resButton);
 
-        BackButton backButton = new BackButton(new MainMenu(player));
-        menuMap.put(17, backButton);
+        addBackButton(getInventorySize() - 1, previous);
     }
 }

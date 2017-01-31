@@ -5,6 +5,7 @@ import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
 import com.codisimus.plugins.buttonwarp.menu.HelpSetupMenu;
+import com.codisimus.plugins.buttonwarp.menu.MainMenu;
 import com.codisimus.plugins.buttonwarp.utils.Colorizer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -29,7 +30,7 @@ public class CommandMax implements CqCommand {
                 }
             }
 
-            new HelpSetupMenu((Player) sender).ShowMenu((Player) sender);
+            new HelpSetupMenu(new MainMenu()).ShowMenu((Player) sender);
             return true;
         }
         return false;

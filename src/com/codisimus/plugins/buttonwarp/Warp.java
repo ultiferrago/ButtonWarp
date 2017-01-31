@@ -63,6 +63,14 @@ public class Warp implements Comparable {
 
     Properties activationTimes = new Properties(); //ButtonLocation'PlayerName=Activations'Time
 
+    public Location getLocation() {
+        if (world != null) {
+            return new Location(Bukkit.getWorld(world), x, y, z);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Constructs a new Warp with the given name at the given Player's location
      *

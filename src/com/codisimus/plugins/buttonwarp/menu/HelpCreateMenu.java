@@ -13,11 +13,14 @@ import org.bukkit.entity.Player;
  * Created by Spearhartt on 1/30/2017.
  */
 public class HelpCreateMenu extends Menu {
-    public HelpCreateMenu(Player player) {
-        if (!ButtonWarp.hasPermission(player, "create")) {
-            new MainMenu(player).ShowMenu(player);
-        }
+    public Menu previous;
 
+    public HelpCreateMenu(Menu prevMenu) {
+        setName(ChatColor.YELLOW + "Create Warps");
+        previous = prevMenu;
+    }
+
+    protected void CreateMenu(Player player) {
         final HelpCreateMenu thisMenu = this;
         String command = ButtonWarp.command_label;
 
@@ -86,16 +89,11 @@ public class HelpCreateMenu extends Menu {
         dWarp.setOnPressedListener(new Button.onButtonPressedListener() {
             @Override
             public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
-                //do something here
+                new DeleteMenu(menuInteractionEvent.getInteractor()).ShowMenu(menuInteractionEvent.getInteractor());
             }
         });
         menuMap.put(loc++, dWarp);
 
-        BackButton backButton = new BackButton(new MainMenu(player));
-        if (loc <= 7) {
-            menuMap.put(8, backButton);
-        } else {
-            menuMap.put(17, backButton);
-        }
+        addBackButton(getInventorySize() - 1, previous);
     }
 }
