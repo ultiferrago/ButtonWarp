@@ -1,10 +1,5 @@
 package com.codisimus.plugins.buttonwarp;
 
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.Properties;
-
-import com.codisimus.plugins.buttonwarp.commands.ButtonWarpCommandSender;
 import com.codisimus.plugins.buttonwarp.utils.Econ;
 import org.apache.commons.lang.time.DateUtils;
 import org.bukkit.Bukkit;
@@ -17,6 +12,11 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.Properties;
+import java.util.Set;
+
 /**
  * A Warp is a Location that a Player is sent to when pressing a linked Button
  *
@@ -26,7 +26,6 @@ public class Warp implements Comparable {
     public static boolean log;
     public static boolean broadcast;
     public static boolean sound;
-    private static ButtonWarpCommandSender cs = new ButtonWarpCommandSender();;
 
     public String name; //A unique name for the Warp
     public String msg = ""; //Message sent to Player when using the Warp
@@ -612,5 +611,39 @@ public class Warp implements Comparable {
             return name.compareTo(warp.name);
         }
         return 0;
+    }
+
+    /**
+     * Returns the Warp with the given name
+     * If no name is provided the Warp is found using the target Block
+     *
+     * @param player The Player target the Block
+     * @param name The name of the Warp to be found
+     * @return The Warp or null if none was found
+     */
+    public static Warp getWarp(Player player, String name) {
+        Warp warp;
+
+        if (name == null) {
+            //Find the Warp using the target Block
+            warp = ButtonWarp.findWarp(player.getTargetBlock((Set<Material>)null, 10));
+
+            //Cancel if the Warp does not exist
+            if (warp == null ) {
+                player.sendMessage("§4Target Block is not linked to a Warp");
+                return null;
+            }
+        } else {
+            //Find the Warp using the given name
+            warp = ButtonWarp.findWarp(name);
+
+            //Cancel if the Warp does not exist
+            if (warp == null ) {
+                player.sendMessage("§4Warp §6" + name + "§4 does not exsist.");
+                return null;
+            }
+        }
+
+        return warp;
     }
 }

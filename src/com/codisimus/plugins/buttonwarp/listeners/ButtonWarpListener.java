@@ -1,10 +1,7 @@
 package com.codisimus.plugins.buttonwarp.listeners;
 
-import java.util.HashSet;
-
 import com.codisimus.plugins.buttonwarp.Button;
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
-import com.codisimus.plugins.buttonwarp.commands.ButtonWarpCommand;
 import com.codisimus.plugins.buttonwarp.ButtonWarpMessages;
 import com.codisimus.plugins.buttonwarp.Warp;
 import org.bukkit.Material;
@@ -18,6 +15,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.EnumSet;
+import java.util.HashSet;
+
 /**
  * Listens for interactions with Warps
  *
@@ -26,6 +26,10 @@ import org.bukkit.scheduler.BukkitTask;
 public class ButtonWarpListener implements Listener {
     public static int delay;
     private static HashSet<String> antiSpam = new HashSet<String>();
+    public static final EnumSet<Material> LINKABLE = EnumSet.of(
+            Material.LEVER, Material.STONE_PLATE, Material.WOOD_PLATE,
+            Material.STONE_BUTTON, Material.WOOD_BUTTON, Material.TRIPWIRE,
+            Material.TRIPWIRE_HOOK, Material.DETECTOR_RAIL);
 
     /**
      * Activates Warps when Players click a linked button
@@ -187,7 +191,7 @@ public class ButtonWarpListener implements Listener {
     @EventHandler (ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
         Block block = event.getBlock();
-        if (!ButtonWarpCommand.LINKABLE.contains(block.getType())) {
+        if (!LINKABLE.contains(block.getType())) {
             return;
         }
 

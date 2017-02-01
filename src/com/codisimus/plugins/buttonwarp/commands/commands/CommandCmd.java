@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-import static com.codisimus.plugins.buttonwarp.commands.ButtonWarpCommand.getWarp;
+import static com.codisimus.plugins.buttonwarp.Warp.getWarp;
 
 /**
  * Created by Spearhartt on 1/30/2017.

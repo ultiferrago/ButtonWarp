@@ -1,9 +1,9 @@
 package com.codisimus.plugins.buttonwarp.configs;
 
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
-import com.codisimus.plugins.buttonwarp.commands.ButtonWarpCommand;
 import com.codisimus.plugins.buttonwarp.ButtonWarpMessages;
 import com.codisimus.plugins.buttonwarp.Warp;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandWarp;
 import com.codisimus.plugins.buttonwarp.listeners.ButtonWarpListener;
 import com.codisimus.plugins.buttonwarp.utils.Colorizer;
 import net.md_5.bungee.api.ChatColor;
@@ -47,7 +47,7 @@ public class ButtonWarpConfig {
             ButtonWarp.defaultMinutes = Integer.parseInt(defaultResetTime[2]);
             ButtonWarp.defaultSeconds = Integer.parseInt(defaultResetTime[3]);
 
-            ButtonWarpCommand.multiplier = loadInt("CommandWarpMultiplier", 5);
+            CommandWarp.multiplier = loadInt("CommandWarpMultiplier", 5);
 
             Warp.log = loadBool("LogWarps", false);
             Warp.broadcast = loadBool("BroadcastWarps", false);
