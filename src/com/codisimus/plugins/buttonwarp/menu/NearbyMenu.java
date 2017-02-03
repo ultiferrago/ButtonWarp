@@ -2,9 +2,9 @@ package com.codisimus.plugins.buttonwarp.menu;
 
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
-import com.conquestiamc.GUI.API.BackButton;
-import com.conquestiamc.GUI.API.Button;
-import com.conquestiamc.GUI.API.Menu;
+import com.conquestiamc.GUI.Menu;
+import com.conquestiamc.GUI.MenuInteractionEvent;
+import com.conquestiamc.GUI.buttons.Button;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -46,6 +46,31 @@ public class NearbyMenu extends Menu {
                 return (int)Math.floor(o1.getLocation().distanceSquared(player.getLocation()) - o2.getLocation().distanceSquared(player.getLocation()));
             }
         });
+
+        Button alphaButton = new Button();
+        alphaButton.setIcon(Material.WOOL);
+        alphaButton.setName(ChatColor.AQUA + "Sort Alphabetical");
+        alphaButton.setOnPressedListener(new Button.onButtonPressedListener() {
+            @Override
+            public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
+                //stuff
+            }
+        });
+        menuMap.put(menuLoc++, alphaButton);
+
+        Button linkButton = new Button();
+        linkButton.setIcon(Material.WOOL);
+        linkButton.setName(ChatColor.AQUA + "Sort Nearest Linked");
+        linkButton.setOnPressedListener(new Button.onButtonPressedListener() {
+            @Override
+            public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
+                //stuff
+            }
+        });
+        menuMap.put(menuLoc++, linkButton);
+
+        Button nearButton = new Button();
+        nearButton.setIcon(Material.WOOL);
 
         for (Warp warp : sortedWarps) {
             if (menuLoc >= 52) {

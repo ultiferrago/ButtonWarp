@@ -1,9 +1,9 @@
 package com.codisimus.plugins.buttonwarp.menu;
 
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
-import com.conquestiamc.GUI.API.Button;
-import com.conquestiamc.GUI.API.Menu;
-import com.conquestiamc.GUI.API.MenuInteractionEvent;
+import com.conquestiamc.GUI.buttons.Button;
+import com.conquestiamc.GUI.Menu;
+import com.conquestiamc.GUI.MenuInteractionEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

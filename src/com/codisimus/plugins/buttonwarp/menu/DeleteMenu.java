@@ -1,8 +1,8 @@
 package com.codisimus.plugins.buttonwarp.menu;
 
-import com.conquestiamc.GUI.API.BackButton;
-import com.conquestiamc.GUI.API.Button;
-import com.conquestiamc.GUI.API.MenuInteractionEvent;
+import com.conquestiamc.GUI.buttons.BackButton;
+import com.conquestiamc.GUI.buttons.Button;
+import com.conquestiamc.GUI.MenuInteractionEvent;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
