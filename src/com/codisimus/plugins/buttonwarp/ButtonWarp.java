@@ -289,7 +289,7 @@ public class ButtonWarp extends JavaPlugin implements CommandExecutor {
             p.setProperty("Restricted", String.valueOf(warp.restricted));
 
             String value = "";
-            for (Button button: warp.buttons) {
+            for (LinkedButton button: warp.buttons) {
                 value += "; " + button.toString();
             }
             if (!value.isEmpty()) {

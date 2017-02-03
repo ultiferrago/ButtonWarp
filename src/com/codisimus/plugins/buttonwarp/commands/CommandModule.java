@@ -1,6 +1,5 @@
 package com.codisimus.plugins.buttonwarp.commands;
 
-import com.codisimus.plugins.buttonwarp.Button;
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.commands.commands.CommandAccess;
 import com.codisimus.plugins.buttonwarp.commands.commands.CommandAllow;
@@ -24,7 +23,7 @@ import com.codisimus.plugins.buttonwarp.commands.commands.CommandRl;
 import com.codisimus.plugins.buttonwarp.commands.commands.CommandSource;
 import com.codisimus.plugins.buttonwarp.commands.commands.CommandTime;
 import com.codisimus.plugins.buttonwarp.commands.commands.CommandUnlink;
-import com.conquestiamc.CqAPI;
+import com.codisimus.plugins.buttonwarp.commands.commands.CommandWarp;
 import com.conquestiamc.logging.CqLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -69,6 +68,7 @@ public class CommandModule implements CommandExecutor, Listener {
         registerCommand(new CommandSource());
         registerCommand(new CommandTime());
         registerCommand(new CommandUnlink());
+        registerCommand(new CommandWarp());
     }
 
     @Override
@@ -80,7 +80,7 @@ public class CommandModule implements CommandExecutor, Listener {
         }
 
         if (commandMap.containsKey(args[0])) {
-            CqLogger.debug(COMMAND_TAG + "Found executed command - " + label + " - Relaying command");
+            CqLogger.debug(ButtonWarp.plugin, "Found executed command - " + label + " - Relaying command");
             ArrayList<String> list = new ArrayList();
             Collections.addAll(list, args);
             list.remove(0);
@@ -92,10 +92,10 @@ public class CommandModule implements CommandExecutor, Listener {
 
     public void registerCommand(CqCommand command) {
         if (command.getCommandLabel() != null) {
-            CqLogger.debug(COMMAND_TAG + "Registered command - " + command.getCommandLabel());
+            CqLogger.debug(ButtonWarp.plugin, "Registered command - " + command.getCommandLabel());
             commandMap.put(command.getCommandLabel(), command);
         } else {
-            CqLogger.debug(COMMAND_TAG + "You have an unset command label on - " + command.getClass().getName());
+            CqLogger.debug(ButtonWarp.plugin, "You have an unset command label on - " + command.getClass().getName());
         }
     }
 

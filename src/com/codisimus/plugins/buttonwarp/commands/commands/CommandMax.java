@@ -1,6 +1,6 @@
 package com.codisimus.plugins.buttonwarp.commands.commands;
 
-import com.codisimus.plugins.buttonwarp.Button;
+import com.codisimus.plugins.buttonwarp.LinkedButton;
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
@@ -53,7 +53,7 @@ public class CommandMax implements CqCommand {
             return;
         }
 
-        Button button = warp.findButton(block);
+        LinkedButton button = warp.findButton(block);
         button.max = max;
 
         player.sendMessage(Colorizer.normColor + "Players may use target Button " + Colorizer.warpColor

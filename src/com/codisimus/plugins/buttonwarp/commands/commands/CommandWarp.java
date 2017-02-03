@@ -93,6 +93,6 @@ public class CommandWarp implements CqCommand {
 
     @Override
     public String getCommandLabel() {
-        return null;
+        return "warp";
     }
 }

@@ -1,6 +1,6 @@
 package com.codisimus.plugins.buttonwarp.listeners;
 
-import com.codisimus.plugins.buttonwarp.Button;
+import com.codisimus.plugins.buttonwarp.LinkedButton;
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.ButtonWarpMessages;
 import com.codisimus.plugins.buttonwarp.Warp;
@@ -144,7 +144,7 @@ public class ButtonWarpListener implements Listener {
         }
 
         //Cancel the event if the Warp was not successfully activated
-        final Button button = warp.findButton(block);
+        final LinkedButton button = warp.findButton(block);
         if (!warp.canActivate(player, button)) {
             event.setCancelled(true);
             final String key = player.getName() + '@'

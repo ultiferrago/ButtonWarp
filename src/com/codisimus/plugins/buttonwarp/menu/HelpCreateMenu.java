@@ -89,7 +89,7 @@ public class HelpCreateMenu extends Menu {
         dWarp.setOnPressedListener(new Button.onButtonPressedListener() {
             @Override
             public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
-                new DeleteMenu(menuInteractionEvent.getInteractor()).ShowMenu(menuInteractionEvent.getInteractor());
+                new DeleteMenu(thisMenu, null).ShowMenu(menuInteractionEvent.getInteractor());
             }
         });
         menuMap.put(loc++, dWarp);

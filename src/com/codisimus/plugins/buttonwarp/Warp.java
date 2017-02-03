@@ -3,6 +3,7 @@ package com.codisimus.plugins.buttonwarp;
 import com.codisimus.plugins.buttonwarp.utils.Econ;
 import org.apache.commons.lang.time.DateUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -58,7 +59,7 @@ public class Warp implements Comparable {
 
     public boolean global = false; //Reset Type
     public boolean restricted = ButtonWarp.defaultRestricted;
-    public LinkedList<Button> buttons = new LinkedList<Button>(); //List of Blocks that activate the Warp
+    public LinkedList<LinkedButton> buttons = new LinkedList<LinkedButton>(); //List of Blocks that activate the Warp
 
     Properties activationTimes = new Properties(); //ButtonLocation'PlayerName=Activations'Time
 
@@ -68,6 +69,26 @@ public class Warp implements Comparable {
         } else {
             return null;
         }
+    }
+
+    public String getJSONinfo() {
+        StringBuilder jsonInfo = new StringBuilder();
+        jsonInfo.append(ChatColor.GOLD + "" + ChatColor.BOLD + "Warp Information\n"
+                + ChatColor.GRAY + "World: " + ChatColor.AQUA + world + "\n"
+                + ChatColor.GRAY + "X:" + ChatColor.AQUA + Math.floor(x) + ChatColor.GRAY + " Y:"
+                + ChatColor.AQUA + Math.floor(y) + ChatColor.GRAY + " Z:" + ChatColor.AQUA + Math.floor(z) + "\n");
+        if (Econ.economy != null) {
+            jsonInfo.append(ChatColor.GRAY + "Amount: " + ChatColor.GREEN + Econ.format(amount) + ChatColor.GRAY
+                    + "Money Source: " + ChatColor.GREEN + source + "\n");
+        }
+        jsonInfo.append(ChatColor.GRAY + "Reset Time: " + ChatColor.AQUA + days + "D " + hours + "H "
+                + minutes + "M " + seconds + "S\n"
+                + ChatColor.GRAY + "Commands: " + ChatColor.YELLOW + commands + "\n"
+                + ChatColor.GRAY + "Restricted: " + ChatColor.RED + restricted + "\n"
+                + ChatColor.GRAY + "Item Cost Type: " + ChatColor.YELLOW + itemType + "\n"
+                + ChatColor.GRAY + "Item Name: " + ChatColor.YELLOW + itemName + "\n"
+                + ChatColor.GRAY + "Item Cost Amount: " + ChatColor.YELLOW + itemAmount);
+        return jsonInfo.toString();
     }
 
     /**
@@ -119,7 +140,7 @@ public class Warp implements Comparable {
      * @param button The Block which was pressed
      * @return True if the Player is able to activate the Warp
      */
-    public Boolean canActivate(Player player, Button button) {
+    public Boolean canActivate(Player player, LinkedButton button) {
         //False if the Player does not have access rights
         if (!hasAccess(player)) {
             return false;
@@ -212,7 +233,7 @@ public class Warp implements Comparable {
      * @param player The Player who is activating the Warp
      * @param button The Block which was pressed
      */
-    public void activate(final Player player, Button button) {
+    public void activate(final Player player, LinkedButton button) {
 
         if (world != null) {
             teleport(player);
@@ -277,7 +298,7 @@ public class Warp implements Comparable {
      * @param player The Player who is being checked for smuggling
      * @return true if the Player is smuggling
      */
-    private boolean isSmuggling(Player player, Button button) {
+    private boolean isSmuggling(Player player, LinkedButton button) {
         //Return false if smuggling is allowed
         if (button.takeItems) {
             return false;
@@ -309,7 +330,7 @@ public class Warp implements Comparable {
      * @param player The Player who is activating the Warp
      * @param button The Button which was pressed
      */
-    private boolean isTimedOutForReward(Player player, Button button) {
+    private boolean isTimedOutForReward(Player player, LinkedButton button) {
         String user = global ? "global" : player.getName();
         String key = button.getKey(user);
         String value = activationTimes.getProperty(key);
@@ -389,7 +410,7 @@ public class Warp implements Comparable {
      * @param button The Button to set the time for
      * @param player The name of the Player whose time is to be updated
      */
-    public void setTime(Button button, String player) {
+    public void setTime(LinkedButton button, String player) {
         String key = button.getKey(player);
         setTime(key, 1, getCurrentMillis());
         save();
@@ -415,7 +436,7 @@ public class Warp implements Comparable {
      * @param player The name of the Player whose time is requested
      * @return The time as a String
      */
-    public String getTime(Button button, String player) {
+    public String getTime(LinkedButton button, String player) {
         String key = button.getKey(player);
         return activationTimes.getProperty(key);
     }
@@ -475,9 +496,9 @@ public class Warp implements Comparable {
      * @param block The given Block
      * @return the Button that is associated with the given Block
      */
-    public Button findButton(Block block) {
+    public LinkedButton findButton(Block block) {
         //Iterate through buttons to find the Button of the given Block
-        for (Button button: buttons) {
+        for (LinkedButton button: buttons) {
             if (button.isBlock(block)) {
                 return button;
             }
@@ -505,7 +526,7 @@ public class Warp implements Comparable {
                 String[] buttonData = string.split("'");
 
                 //Construct a a new Button with the Location data
-                Button button = new Button(buttonData[0], Integer.parseInt(buttonData[1]),
+                LinkedButton button = new LinkedButton(buttonData[0], Integer.parseInt(buttonData[1]),
                         Integer.parseInt(buttonData[2]), Integer.parseInt(buttonData[3]));
 
                 button.takeItems = Boolean.parseBoolean(buttonData[4]);
@@ -541,7 +562,7 @@ public class Warp implements Comparable {
                 String[] blockData = string.substring(0, index).split("'");
 
                 //Construct a a new Button with the Location data
-                Button button = new Button(blockData[0], Integer.parseInt(blockData[1]),
+                LinkedButton button = new LinkedButton(blockData[0], Integer.parseInt(blockData[1]),
                         Integer.parseInt(blockData[2]), Integer.parseInt(blockData[3]));
 
                 button.takeItems = Boolean.parseBoolean(blockData[4]);

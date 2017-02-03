@@ -1,33 +1,34 @@
 package com.codisimus.plugins.buttonwarp.menu;
 
-import com.conquestiamc.GUI.buttons.BackButton;
-import com.conquestiamc.GUI.buttons.Button;
+import com.codisimus.plugins.buttonwarp.Warp;
+import com.conquestiamc.GUI.Menu;
 import com.conquestiamc.GUI.MenuInteractionEvent;
-import net.md_5.bungee.api.ChatColor;
+import com.conquestiamc.GUI.buttons.Button;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
 
 /**
  * Created by Spearhartt on 1/31/2017.
  */
 public class DeleteMenu extends NearbyMenu {
-    public DeleteMenu(Player player) {
-        super(new HelpCreateMenu(new MainMenu()));
-        DeleteMenu thisMenu = this;
-        this.name = ChatColor.RED + "Delete Warps";
+    public Menu previous;
+    public ArrayList<Warp> sortedWarps;
 
-        for (int i = 0; i < 52; i++) {
-            if (menuMap.containsKey(i) && !(menuMap.get(i) instanceof BackButton)) {
-                Button button = menuMap.get(i);
-                button.setOnPressedListener(new Button.onButtonPressedListener() {
-                    @Override
-                    public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
-                        new ConfirmationMenu(player, thisMenu, "bw delete " + ChatColor.stripColor(button.getName()).substring(6)).ShowMenu(player);
-                    }
-                });
-                menuMap.put(i, button);
-            } else if (menuMap.containsKey(i) && menuMap.get(i) instanceof BackButton) {
-                addBackButton(i, previous);
+    public DeleteMenu(Menu prevMenu, ArrayList<Warp> warps) {
+        super(prevMenu, warps);
+        previous = prevMenu;
+        sortedWarps = warps;
+    }
+
+    @Override
+    public Button buttonAction(String warpName, Button button) {
+        button.setOnPressedListener(new Button.onButtonPressedListener() {
+            @Override
+            public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
+                new ConfirmationMenu(menuInteractionEvent.getInteractor(), previous, "bw delete " + warpName);
             }
-        }
+        });
+        return button;
     }
 }

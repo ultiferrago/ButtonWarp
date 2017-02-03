@@ -9,7 +9,7 @@ import org.bukkit.block.Block;
  *
  * @author Codisimus
  */
-public class Button {
+public class LinkedButton {
     String world;
     int x;
     int y;
@@ -23,7 +23,7 @@ public class Button {
      * @param block The given Block
      * @return The newly created Button
      */
-    public Button(Block block) {
+    public LinkedButton(Block block) {
         world = block.getWorld().getName();
         x = block.getX();
         y = block.getY();
@@ -38,7 +38,7 @@ public class Button {
      * @param y The y-coordinate of the Block
      * @param z The z-coordinate of the Block
      */
-    public Button(String world, int x, int y, int z) {
+    public LinkedButton(String world, int x, int y, int z) {
         this.world = world;
         this.x = x;
         this.y = y;
@@ -67,10 +67,17 @@ public class Button {
         return block.getWorld().getName().equals(world);
     }
 
-    public Block getBlock(Button button) {
+    public Block getBlock(LinkedButton button) {
         String[] locationString = button.getLocationString().split("'");
         Location buttonLoc = new Location(Bukkit.getWorld(locationString[0]), Integer.parseInt(locationString[1]), Integer.parseInt(locationString[2]), Integer.parseInt(locationString[3]));
         return buttonLoc.getBlock();
+    }
+
+    public Location getLocation() {
+        if (world != null) {
+            return new Location(Bukkit.getWorld(world), x, y, z);
+        }
+        return null;
     }
 
     /**

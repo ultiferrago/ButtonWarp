@@ -1,6 +1,6 @@
 package com.codisimus.plugins.buttonwarp.commands.commands;
 
-import com.codisimus.plugins.buttonwarp.Button;
+import com.codisimus.plugins.buttonwarp.LinkedButton;
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
 import com.codisimus.plugins.buttonwarp.Warp;
 import com.codisimus.plugins.buttonwarp.commands.CqCommand;
@@ -70,7 +70,7 @@ public class CommandLink implements CqCommand {
             return;
         }
 
-        warp.buttons.add(new Button(block));
+        warp.buttons.add(new LinkedButton(block));
         player.sendMessage(Colorizer.normColor + "Button has been linked to Warp " + Colorizer.warpColor + name);
         warp.save();
     }

@@ -1,10 +1,10 @@
 package com.codisimus.plugins.buttonwarp.menu;
 
 import com.codisimus.plugins.buttonwarp.ButtonWarp;
-import com.conquestiamc.GUI.API.Button;
-import com.conquestiamc.GUI.API.ExitButton;
-import com.conquestiamc.GUI.API.Menu;
-import com.conquestiamc.GUI.API.MenuInteractionEvent;
+import com.conquestiamc.GUI.buttons.Button;
+import com.conquestiamc.GUI.buttons.ExitButton;
+import com.conquestiamc.GUI.Menu;
+import com.conquestiamc.GUI.MenuInteractionEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -49,7 +49,7 @@ public class MainMenu extends Menu {
             lWarps.setOnPressedListener(new Button.onButtonPressedListener() {
                 @Override
                 public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
-                    new NearbyMenu(thisMenu).ShowMenu(player);
+                    new NearbyMenu(thisMenu, null).ShowMenu(player);
                 }
             });
             menuMap.put(location++, lWarps);
@@ -64,8 +64,7 @@ public class MainMenu extends Menu {
             iWarp.setOnPressedListener(new Button.onButtonPressedListener() {
                 @Override
                 public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
-                    //do something here
-                    //list nearby warps
+                    new NearbyMenu(thisMenu, null).ShowMenu(player);
                 }
             });
             menuMap.put(location++, iWarp);
