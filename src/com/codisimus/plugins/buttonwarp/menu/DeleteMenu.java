@@ -1,8 +1,8 @@
 package com.codisimus.plugins.buttonwarp.menu;
 
 import com.codisimus.plugins.buttonwarp.Warp;
-import com.conquestiamc.GUI.Menu;
-import com.conquestiamc.GUI.MenuInteractionEvent;
+import com.conquestiamc.GUI.menu.Menu;
+import com.conquestiamc.GUI.menu.MenuInteractionEvent;
 import com.conquestiamc.GUI.buttons.Button;
 
 import java.util.ArrayList;
