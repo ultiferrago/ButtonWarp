@@ -50,7 +50,7 @@ public class HelpCreateMenu extends Menu {
         mvWarp.setOnPressedListener(new Button.onButtonPressedListener() {
             @Override
             public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
-                //do something here
+                new MoveMenu(thisMenu, null).ShowMenu(menuInteractionEvent.getInteractor());
             }
         });
         menuMap.put(loc++, mvWarp);

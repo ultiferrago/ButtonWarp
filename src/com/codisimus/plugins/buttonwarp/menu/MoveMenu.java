@@ -8,17 +8,13 @@ import com.conquestiamc.GUI.buttons.Button;
 import java.util.ArrayList;
 
 /**
- * Created by Spearhartt on 1/31/2017.
+ * Created by Spearhartt on 2/3/2017.
  */
-public class DeleteMenu extends NearbyMenu {
-    public Menu previous;
-    public ArrayList<Warp> sortedWarps;
+public class MoveMenu extends NearbyMenu {
     public Menu thisMenu = this;
 
-    public DeleteMenu(Menu prevMenu, ArrayList<Warp> warps) {
+    public MoveMenu(Menu prevMenu, ArrayList<Warp> warps) {
         super(prevMenu, warps);
-        previous = prevMenu;
-        sortedWarps = warps;
     }
 
     @Override
@@ -26,7 +22,7 @@ public class DeleteMenu extends NearbyMenu {
         button.setOnPressedListener(new Button.onButtonPressedListener() {
             @Override
             public void onButtonPressed(MenuInteractionEvent menuInteractionEvent) {
-                new ConfirmationMenu(menuInteractionEvent.getInteractor(), thisMenu, "bw delete " + warpName).ShowMenu(menuInteractionEvent.getInteractor());
+                new ConfirmationMenu(menuInteractionEvent.getInteractor(), thisMenu, "bw move " + warpName).ShowMenu(menuInteractionEvent.getInteractor());
             }
         });
         return button;
