@@ -92,7 +92,7 @@ public class WarpMenuUtils {
                 + ChatColor.AQUA + Math.floor(warp.y) + ChatColor.GRAY + " Z:" + ChatColor.AQUA + Math.floor(warp.z));
         if (Econ.economy != null) {
             warpButton.addLoreLine(ChatColor.GRAY + "Amount: " + ChatColor.GREEN + Econ.format(warp.amount) + ChatColor.GRAY
-                    + "Money Source: " + ChatColor.GREEN + warp.source);
+                    + " Source: " + ChatColor.GREEN + warp.source);
         }
         warpButton.addLoreLine(ChatColor.GRAY + "Reset Time: " + ChatColor.AQUA + warp.days + "D " + warp.hours + "H "
                 + warp.minutes + "M " + warp.seconds + "S");
