@@ -79,7 +79,7 @@ public class Warp implements Comparable {
                 + ChatColor.AQUA + Math.floor(y) + ChatColor.GRAY + " Z:" + ChatColor.AQUA + Math.floor(z) + "\n");
         if (Econ.economy != null) {
             jsonInfo.append(ChatColor.GRAY + "Amount: " + ChatColor.GREEN + Econ.format(amount) + ChatColor.GRAY
-                    + "Money Source: " + ChatColor.GREEN + source + "\n");
+                    + " Source: " + ChatColor.GREEN + source + "\n");
         }
         jsonInfo.append(ChatColor.GRAY + "Reset Time: " + ChatColor.AQUA + days + "D " + hours + "H "
                 + minutes + "M " + seconds + "S\n"
